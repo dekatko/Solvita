@@ -1,0 +1,27 @@
+---
+import { testimonials } from '../data/testimonials';
+import Icon from './Icon.astro';
+
+interface Props {
+  heading?: string;
+}
+
+const { heading = 'Das sagen unsere Kundinnen und Kunden' } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-4 sm:px-6">
+  <h2 class="text-h2 font-bold text-ink-900">{heading}</h2>
+  <div class="mt-8 grid gap-6 sm:grid-cols-2">
+    {testimonials.map((testimonial) => (
+      <blockquote class="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+        <div class="flex gap-0.5 text-brand-500">
+          {Array.from({ length: testimonial.rating }).map(() => (
+            <Icon name="star" class="h-4 w-4" />
+          ))}
+        </div>
+        <p class="mt-4 text-ink-700">&bdquo;{testimonial.quote}&ldquo;</p>
+        <footer class="mt-4 text-sm font-semibold text-ink-500">{testimonial.name}</footer>
+      </blockquote>
+    ))}
+  </div>
+</section>

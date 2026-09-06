@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { nap } from '../data/nap';
+---
+
+<!-- REVIEW: verify facts, pricing, brand names before publishing -->
+<Layout title="Datenschutz" description="Datenschutzerklärung von SolVita." noindex>
+  <section class="mx-auto max-w-2xl px-4 py-14 sm:px-6">
+    <h1 class="text-h1 font-bold text-ink-900">Datenschutzerklärung</h1>
+
+    <div class="mt-8 space-y-6 text-ink-700">
+      <p>
+        [TODO: vollständige Datenschutzerklärung vor Veröffentlichung durch einen Fachanwalt/Datenschutzbeauftragten prüfen und ergänzen lassen — dieser Platzhalter ersetzt keine rechtssichere Datenschutzerklärung.]
+      </p>
+
+      <div>
+        <h2 class="font-semibold text-ink-900">Verantwortlicher</h2>
+        <p class="mt-1">{nap.legalName}</p>
+        <p>{nap.street}, {nap.postalCode} {nap.city}</p>
+        <p>Telefon: {nap.phone}</p>
+        <p>E-Mail: {nap.email}</p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-ink-900">Datenschutzbeauftragte(r)</h2>
+        <p class="mt-1">[TODO: Datenschutzbeauftragte/n benennen, falls gesetzlich erforderlich]</p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-ink-900">Kontaktformular</h2>
+        <p class="mt-1">
+          Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage bei uns gespeichert. [TODO: eingesetzte Formular-/Hosting-Dienstleister und Speicherdauer ergänzen]
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { nap } from '../data/nap';
+
+const values = [
+  { title: 'Qualität', text: 'Sorgfältige Planung und fachgerechte Installation nach aktuellem Stand der Technik.' },
+  { title: 'Kundennähe', text: 'Ein Ansprechpartner von der ersten Beratung bis zur Inbetriebnahme.' },
+  { title: 'Nachhaltigkeit', text: 'Wir sind überzeugt: Die Energiewende gelingt nur gemeinsam.' },
+];
+
+// TODO: confirm current partner/brand list before publishing.
+const brands = ['Sungrow', 'Huawei', 'Deye', 'EcoFlow', 'K2 Systems', 'Heidelberg', 'myenergi', 'Loxone'];
+---
+
+<!-- REVIEW: verify facts, pricing, brand names before publishing -->
+<Layout
+  title="Über uns"
+  description={`${nap.brandName} aus ${nap.city}: junges, familiäres Team für Photovoltaik, Speicher und Gebäudetechnik in Niedersachsen.`}
+>
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <h1 class="text-h1 font-bold text-ink-900">Über {nap.brandName}</h1>
+    <p class="mt-4 text-lead text-ink-600">
+      {nap.brandName} ist ein junges, familiäres und wachsendes Unternehmen für Photovoltaik und Gebäudetechnik mit Sitz in {nap.city}.
+    </p>
+
+    <div class="mt-10 space-y-5 text-ink-700">
+      <p>
+        Gegründet wurde {nap.brandName} 2024 von {nap.founder}, einem Elektroingenieur, der bereits seit 2022 selbstständig tätig war. Aus dieser Erfahrung entstand ein Betrieb, der Photovoltaik, Elektroinstallation, Wärmepumpen, Wallboxen und Smart-Home-Lösungen unter einem Dach anbietet.
+      </p>
+      <p>
+        Heute besteht das Team aus {nap.founder} als Gründer und Kopf des Unternehmens, drei Teilzeitkräften, einer Buchhaltung und einem Elektriker. Bewusst bleiben wir überschaubar — damit jedes Projekt persönlich betreut wird, von der ersten Beratung bis zur Inbetriebnahme.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-3">
+      {values.map((value) => (
+        <div class="rounded-2xl border border-ink-100 bg-white p-5">
+          <h2 class="font-semibold text-ink-900">{value.title}</h2>
+          <p class="mt-2 text-sm text-ink-500">{value.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-14">
+      <h2 class="text-h2 font-bold text-ink-900">Marken, mit denen wir arbeiten</h2>
+      <p class="mt-2 text-sm text-ink-500">
+        Je nach Projekt setzen wir auf Komponenten anerkannter Hersteller. [TODO: aktuelle Markenpartner vor Veröffentlichung bestätigen]
+      </p>
+      <ul class="mt-5 flex flex-wrap gap-3">
+        {brands.map((brand) => (
+          <li class="rounded-full bg-ink-100 px-4 py-2 text-sm font-medium text-ink-700">{brand}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="mt-14">
+      <h2 class="text-h2 font-bold text-ink-900">Unser Einsatzgebiet</h2>
+      <p class="mt-2 text-ink-600">
+        Von {nap.city} aus sind wir in ganz {nap.region} unterwegs, mit besonderem Schwerpunkt auf Wolfsburg, Gifhorn, Helmstedt und Braunschweig.
+      </p>
+    </div>
+  </section>
+
+  <div class="pb-16">
+    <CTA heading="Lernen Sie uns kennen" text="Vereinbaren Sie ein unverbindliches Erstgespräch." />
+  </div>
+</Layout>

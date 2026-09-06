@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import { testimonials } from '../data/testimonials';
+import { nap } from '../data/nap';
+
+const averageRating =
+  testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length;
+
+// TODO: replace with the real, current review count/rating (e.g. from Google) before publishing.
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: nap.legalName,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: averageRating.toFixed(1),
+    reviewCount: testimonials.length,
+  },
+  review: testimonials.map((t) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: t.name },
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: t.rating,
+      bestRating: 5,
+    },
+    reviewBody: t.quote,
+  })),
+};
+---
+
+<!-- REVIEW: verify facts, pricing, brand names before publishing -->
+<Layout
+  title="Referenzen"
+  description="Stimmen von Kundinnen und Kunden zu Photovoltaik-Projekten von SolVita in Wolfsburg und Niedersachsen."
+>
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <h1 class="text-h1 font-bold text-ink-900">Was unsere Kundinnen und Kunden sagen</h1>
+    <p class="mt-4 text-lead text-ink-600">
+      Ein Auszug aus dem Feedback zu bereits realisierten Photovoltaik-Projekten. [TODO: weitere aktuelle Referenzen/Bewertungen ergänzen, z. B. von Google]
+    </p>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      {testimonials.map((testimonial) => (
+        <blockquote class="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+          <div class="flex gap-0.5 text-brand-500">
+            {Array.from({ length: testimonial.rating }).map(() => (
+              <Icon name="star" class="h-4 w-4" />
+            ))}
+          </div>
+          <p class="mt-4 text-ink-700">&bdquo;{testimonial.quote}&ldquo;</p>
+          <footer class="mt-4 text-sm font-semibold text-ink-500">{testimonial.name}</footer>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+
+  <div class="pb-16">
+    <CTA heading="Werden Sie unsere nächste Referenz" text="Lassen Sie uns über Ihr Photovoltaik-Projekt sprechen." />
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />
+</Layout>

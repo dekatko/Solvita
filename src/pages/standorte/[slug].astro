@@ -1,0 +1,63 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ServiceLinks from '../../components/ServiceLinks.astro';
+import Icon from '../../components/Icon.astro';
+import CTA from '../../components/CTA.astro';
+
+export async function getStaticPaths() {
+  const standorte = await getCollection('standorte');
+  return standorte.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { city, title, metaDescription, intro, localFacts } = entry.data;
+---
+
+<!-- REVIEW: verify facts, pricing, brand names before publishing -->
+<Layout title={title} description={metaDescription}>
+  <Breadcrumbs items={[
+    { label: 'Start', href: '/' },
+    { label: 'Standorte', href: `/standorte/${entry.id}/` },
+    { label: city, href: `/standorte/${entry.id}/` },
+  ]} />
+
+  <section class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <p class="inline-flex items-center gap-2 rounded-full bg-sky-100 px-4 py-1.5 text-sm font-medium text-sky-700">
+      <Icon name="pin" class="h-4 w-4" /> Standort
+    </p>
+    <h1 class="mt-4 text-h1 font-bold text-ink-900">{title}</h1>
+    <p class="mt-4 text-lead text-ink-600">{intro}</p>
+
+    {localFacts?.length > 0 && (
+      <ul class="mt-8 space-y-2">
+        {localFacts.map((fact: string) => (
+          <li class="flex items-start gap-3 text-ink-700">
+            <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
+            <span>{fact}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <div class="md-content mt-10">
+      <Content />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <ServiceLinks heading={`Unsere Leistungen in ${city}`} count={6} />
+  </section>
+
+  <div class="pb-16">
+    <CTA
+      heading={`Photovoltaik in ${city} geplant?`}
+      text={`Wir beraten Sie kostenlos zu Anlagengröße, Speicher und Fördermöglichkeiten in ${city}.`}
+    />
+  </div>
+</Layout>

@@ -1,0 +1,71 @@
+---
+import { nap } from '../data/nap';
+import { services } from '../data/services';
+
+const navItems = [
+  { href: '/', label: 'Start' },
+  { href: '/leistungen/photovoltaikanlage/', label: 'Leistungen' },
+  { href: '/standorte/wolfsburg/', label: 'Standorte' },
+  { href: '/ratgeber/', label: 'Ratgeber' },
+  { href: '/referenzen/', label: 'Referenzen' },
+  { href: '/ueber-uns/', label: 'Über uns' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-ink-100 bg-white/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+    <a href="/" class="flex items-center gap-2 text-lg font-bold text-brand-700">
+      <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm9-6a1 1 0 0 1-1 1h-2a1 1 0 1 1 0-2h2a1 1 0 0 1 1 1ZM6 12a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h2a1 1 0 0 1 1 1Zm12.36 6.36-1.42-1.41a1 1 0 1 1 1.42-1.42l1.41 1.42a1 1 0 0 1-1.41 1.41ZM6.05 6.05 4.64 4.64A1 1 0 1 1 6.05 3.2l1.41 1.42a1 1 0 1 1-1.41 1.42Zm12.31-1.41A1 1 0 1 1 19.78 6.05l-1.42 1.41a1 1 0 1 1-1.41-1.41ZM7.46 17.54 6.05 18.95a1 1 0 1 1-1.41-1.41l1.41-1.42a1 1 0 0 1 1.41 1.42ZM12 21a1 1 0 0 1 1 1v0a1 1 0 1 1-2 0v0a1 1 0 0 1 1-1Z" />
+        </svg>
+      </span>
+      {nap.brandName}
+    </a>
+
+    <nav aria-label="Hauptnavigation" class="hidden items-center gap-6 text-sm font-medium text-ink-700 lg:flex">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'transition-colors hover:text-brand-700',
+            currentPath === item.href && 'text-brand-700',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-4 md:flex">
+      <a href={nap.phoneHref} class="text-sm font-semibold text-ink-700 hover:text-brand-700">
+        {nap.phone}
+      </a>
+      <a
+        href="/kontakt/"
+        class="rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-700"
+      >
+        Kostenlose Beratung
+      </a>
+    </div>
+
+    <a
+      href="/kontakt/"
+      class="rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm md:hidden"
+    >
+      Beratung
+    </a>
+  </div>
+
+  <nav aria-label="Leistungen" class="border-t border-ink-100 bg-brand-50/50 lg:hidden">
+    <div class="mx-auto flex max-w-6xl gap-4 overflow-x-auto px-4 py-2 text-sm">
+      {services.map((service) => (
+        <a href={`/leistungen/${service.slug}/`} class="whitespace-nowrap text-ink-600 hover:text-brand-700">
+          {service.title}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

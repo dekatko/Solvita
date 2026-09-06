@@ -1,0 +1,36 @@
+---
+import { nap } from '../data/nap';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+
+const {
+  heading = 'Bereit für Ihre eigene Solaranlage?',
+  text = 'Lassen Sie uns unverbindlich über Ihr Dach, Ihren Verbrauch und die passende Anlagengröße sprechen.',
+} = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-4 sm:px-6">
+  <div class="flex flex-col items-start gap-6 rounded-3xl bg-brand-700 px-6 py-10 text-white sm:flex-row sm:items-center sm:justify-between sm:px-10">
+    <div>
+      <h2 class="text-h2 font-bold">{heading}</h2>
+      <p class="mt-2 max-w-xl text-brand-50">{text}</p>
+    </div>
+    <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
+      <a
+        href="/kontakt/"
+        class="rounded-full bg-white px-6 py-3 text-center text-sm font-semibold text-brand-700 shadow-sm transition-colors hover:bg-brand-50"
+      >
+        Kostenlose Beratung
+      </a>
+      <a
+        href={nap.phoneHref}
+        class="rounded-full border border-white/40 px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-white/10"
+      >
+        {nap.phone}
+      </a>
+    </div>
+  </div>
+</section>

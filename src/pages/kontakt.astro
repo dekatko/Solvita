@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { nap } from '../data/nap';
+---
+
+<!-- REVIEW: verify facts, pricing, brand names before publishing -->
+<Layout
+  title="Kontakt"
+  description={`Kontaktieren Sie ${nap.brandName} in ${nap.city} für eine kostenlose Beratung zu Photovoltaik, Speicher, Wallbox und Gebäudetechnik.`}
+>
+  <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    <h1 class="text-h1 font-bold text-ink-900">Kontakt</h1>
+    <p class="mt-4 max-w-2xl text-lead text-ink-600">
+      Erzählen Sie uns von Ihrem Vorhaben — wir melden uns zeitnah mit einem unverbindlichen Beratungstermin.
+    </p>
+
+    <div class="mt-12 grid gap-10 lg:grid-cols-2">
+      <div class="space-y-6">
+        <div class="flex items-start gap-4 rounded-2xl border border-ink-100 bg-white p-5">
+          <Icon name="pin" class="mt-1 h-5 w-5 shrink-0 text-brand-600" />
+          <div>
+            <p class="font-semibold text-ink-900">Adresse</p>
+            <p class="text-ink-600">{nap.street}, {nap.postalCode} {nap.city}</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 rounded-2xl border border-ink-100 bg-white p-5">
+          <Icon name="phone" class="mt-1 h-5 w-5 shrink-0 text-brand-600" />
+          <div>
+            <p class="font-semibold text-ink-900">Telefon</p>
+            <a href={nap.phoneHref} class="text-ink-600 hover:text-brand-700">{nap.phone}</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 rounded-2xl border border-ink-100 bg-white p-5">
+          <Icon name="mail" class="mt-1 h-5 w-5 shrink-0 text-brand-600" />
+          <div>
+            <p class="font-semibold text-ink-900">E-Mail</p>
+            <a href={`mailto:${nap.email}`} class="text-ink-600 hover:text-brand-700">{nap.email}</a>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-ink-100 bg-white p-5">
+          <p class="font-semibold text-ink-900">Öffnungszeiten</p>
+          <ul class="mt-2 space-y-1 text-ink-600">
+            {nap.hours.map((slot) => (
+              <li class="flex justify-between gap-4">
+                <span>{slot.days}</span>
+                <span>{slot.time}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <form class="space-y-4 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm" method="post">
+        <!-- TODO: wire this form up to a real form handler / backend before publishing -->
+        <div>
+          <label for="name" class="text-sm font-medium text-ink-700">Name</label>
+          <input id="name" name="name" type="text" required class="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
+        </div>
+        <div>
+          <label for="email" class="text-sm font-medium text-ink-700">E-Mail</label>
+          <input id="email" name="email" type="email" required class="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
+        </div>
+        <div>
+          <label for="phone" class="text-sm font-medium text-ink-700">Telefon (optional)</label>
+          <input id="phone" name="phone" type="tel" class="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500" />
+        </div>
+        <div>
+          <label for="message" class="text-sm font-medium text-ink-700">Ihr Anliegen</label>
+          <textarea id="message" name="message" rows="4" required class="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
+        >
+          Nachricht senden
+        </button>
+      </form>
+    </div>
+  </section>
+</Layout>

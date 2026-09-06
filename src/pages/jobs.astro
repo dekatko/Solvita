@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { nap } from '../data/nap';
+
+const reasons = [
+  'Junges, familiäres Team mit kurzen Entscheidungswegen',
+  'Arbeit an einem Zukunftsthema mit direktem gesellschaftlichem Nutzen',
+  'Abwechslungsreiche Projekte von Privathaushalten bis Landwirtschaft',
+  'Raum für Eigenverantwortung in einem wachsenden Unternehmen',
+];
+---
+
+<!-- REVIEW: verify facts, pricing, brand names before publishing -->
+<Layout
+  title="Jobs"
+  description={`Karriere bei ${nap.brandName}: Werden Sie Teil eines wachsenden Teams für Photovoltaik und Gebäudetechnik in ${nap.region}.`}
+>
+  <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    <h1 class="text-h1 font-bold text-ink-900">Jobs bei {nap.brandName}</h1>
+    <p class="mt-4 text-lead text-ink-600">
+      Wir wachsen — und suchen Menschen, die die Energiewende in {nap.region} mit uns voranbringen wollen. [TODO: aktuelle offene Stellen mit Titel, Beschreibung und Anforderungen ergänzen]
+    </p>
+
+    <ul class="mt-10 space-y-3">
+      {reasons.map((reason) => (
+        <li class="flex items-start gap-3 rounded-2xl border border-ink-100 bg-white p-4 text-ink-700">
+          <span class="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-brand-600"></span>
+          {reason}
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-10 rounded-2xl bg-brand-50/60 p-6">
+      <h2 class="text-h3 font-bold text-ink-900">Aktuell keine passende Stelle dabei?</h2>
+      <p class="mt-2 text-ink-600">
+        Initiativbewerbungen sind bei uns jederzeit willkommen — schreiben Sie uns einfach an{' '}
+        <a href={`mailto:${nap.email}`} class="font-medium text-brand-700 hover:underline">{nap.email}</a>.
+      </p>
+    </div>
+  </section>
+
+  <div class="pb-16">
+    <CTA heading="Interesse an einer Zusammenarbeit?" text="Melden Sie sich unverbindlich bei uns." />
+  </div>
+</Layout>

@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import ServiceLinks from '../../components/ServiceLinks.astro';
+import LocationLinks from '../../components/LocationLinks.astro';
+import CTA from '../../components/CTA.astro';
+
+const included = [
+  'Vermietung geprüfter, sicherheitsgeprüfter Baustromkästen',
+  'Lieferung direkt auf Ihre Baustelle',
+  'Fachgerechte Installation und sichere Inbetriebnahme',
+  'Anmeldung beim zuständigen Energieversorger',
+  'Wartung und Support während der gesamten Mietdauer',
+];
+---
+
+<!-- REVIEW: verify facts, pricing, brand names before publishing -->
+<Layout
+  title="Baustromkasten"
+  description="Baustromkasten mieten in Wolfsburg und Niedersachsen: Lieferung, Installation, Anmeldung beim Energieversorger und Wartung als Sorglos-Paket von SolVita."
+>
+  <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    <p class="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
+      <Icon name="box" class="h-4 w-4" /> Leistung
+    </p>
+    <h1 class="mt-4 max-w-3xl text-h1 font-bold text-ink-900">
+      Baustromkasten: Ihr Sorglos-Paket für die Baustelle
+    </h1>
+    <p class="mt-4 max-w-2xl text-lead text-ink-600">
+      Für Neubau, Renovierung oder größere Bauprojekte übernimmt SolVita die komplette Stromversorgung Ihrer Baustelle — Montage, Inbetriebnahme und die gesamte bürokratische Abwicklung mit dem Energieversorger inklusive.
+    </p>
+
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+      {included.map((item) => (
+        <li class="flex items-start gap-3 rounded-2xl border border-ink-100 bg-white p-4">
+          <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
+          <span class="text-ink-700">{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bg-brand-50/50 py-14">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <h2 class="text-h2 font-bold text-ink-900">Sicher nach VDE-Standard</h2>
+      <p class="mt-3 text-ink-600">
+        Alle eingesetzten Baustromkästen erfüllen die aktuellen VDE-Vorgaben. So konzentrieren Sie sich auf Ihr Bauprojekt in Wolfsburg und Umgebung, während wir die Stromversorgung zuverlässig im Hintergrund organisieren. [Preis auf Anfrage]
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    <LocationLinks heading="Baustromkasten verfügbar in" />
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+    <ServiceLinks currentSlug="baustromkasten" heading="Weitere Leistungen" />
+  </section>
+
+  <div class="pb-16">
+    <CTA heading="Baustrom für Ihr Projekt benötigt?" text="Fordern Sie ein unverbindliches Angebot für Ihre Baustelle an." />
+  </div>
+</Layout>
