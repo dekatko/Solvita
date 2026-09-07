@@ -28,7 +28,7 @@ const relatedService = await getEntry('leistungen', entry.data.relatedService);
 
   {entry.data.draft && (
     <div class="mx-auto max-w-3xl px-4 pt-6 sm:px-6">
-      <p class="rounded-[var(--radius-md)] border border-warn bg-warn/10 px-4 py-3 text-sm font-medium text-warn">
+      <p class="rounded-[var(--radius-md)] border border-warn bg-warn/10 px-4 py-3 text-sm font-medium text-ink">
         Entwurf — noch nicht veröffentlicht (noindex).
       </p>
     </div>
@@ -47,7 +47,7 @@ const relatedService = await getEntry('leistungen', entry.data.relatedService);
   {relatedService && (
     <div class="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
       <div class="rounded-[var(--radius-md)] border border-line bg-mist/60 p-6 sm:p-8">
-        <p class="text-sm font-semibold uppercase tracking-[var(--tracking-label)] text-zinc">Passende Leistung</p>
+        <p class="text-sm font-semibold uppercase tracking-[var(--tracking-label)] text-ink-2">Passende Leistung</p>
         <h2 class="mt-2 font-display text-xl font-semibold text-ink">{relatedService.data.h1}</h2>
         <p class="mt-2 text-sm text-ink-2">{relatedService.data.summary}</p>
         <Button href={`/${relatedService.id}/`} class="mt-4">Mehr erfahren</Button>

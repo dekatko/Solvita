@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "verify": "node scripts/verify.mjs",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.0",
@@ -25,6 +27,8 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@cloudflare/workers-types": "^5.20260907.1",
+    "axe-core": "^4.13.0",
+    "lighthouse": "^13.4.1",
     "typescript": "^5.9.3"
   }
 }
