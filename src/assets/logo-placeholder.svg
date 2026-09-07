@@ -1,6 +1,13 @@
-<!-- PLACEHOLDER favicon, derived from src/assets/logo-placeholder.svg. Replace once the client supplies a real mark-only crop (see docs/OPEN-FACTS.md) — also generate 32/180/512 PNGs + site.webmanifest from that at the same time. -->
-<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="#142523">
+<!--
+  PLACEHOLDER MARK — not the real SolVita logo.
+  A gear (12 teeth) containing a rising sun halved by a horizon line,
+  built from CLAUDE.md's description since only a 1536x1196 PNG lockup
+  was supplied (not enough to build with). Single flat fill via
+  currentColor so it can be recolored per-context (see Header.astro).
+  Swap this one file when the real vector arrives — see docs/OPEN-FACTS.md.
+-->
+<svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SolVita">
+  <g fill="currentColor">
     <path fill-rule="evenodd" d="M100,12 A88,88 0 0 1 100,188 A88,88 0 0 1 100,12 Z M100,38 A62,62 0 0 1 100,162 A62,62 0 0 1 100,38 Z" />
     <rect x="92" y="2" width="16" height="20" />
     <rect x="92" y="2" width="16" height="20" transform="rotate(30 100 100)" />

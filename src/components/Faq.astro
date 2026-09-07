@@ -1,0 +1,29 @@
+---
+// Accordion via native <details>/<summary> — zero client JS, fully
+// keyboard- and screen-reader-accessible without a scripted island.
+// Emits FAQPage JSON-LD from the exact same items shown on the page
+// (CLAUDE.md: "FAQPage only for Q&A actually visible on the page").
+import { faqSchema } from '../lib/schema';
+
+interface Props {
+  items: { question: string; answer: string }[];
+  class?: string;
+}
+
+const { items, class: className } = Astro.props;
+const schema = faqSchema(items);
+---
+
+<div class:list={['divide-y divide-line rounded-[var(--radius-md)] border border-line bg-paper', className]}>
+  {items.map((item) => (
+    <details class="group px-5 py-4">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink marker:content-none">
+        {item.question}
+        <span class="shrink-0 text-petrol transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+      </summary>
+      <p class="mt-3 text-sm leading-[var(--lh-body)] text-ink-2">{item.answer}</p>
+    </details>
+  ))}
+</div>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

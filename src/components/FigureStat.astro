@@ -1,0 +1,20 @@
+---
+// Numbers are content (CLAUDE.md: "prefer '9,6 kWp, Ost-West, 10 kWh
+// Speicher' over 'hochwertig'") — set in mono with tabular-nums so
+// they read as data.
+interface Props {
+  value: string;
+  unit?: string;
+  label: string;
+  class?: string;
+}
+
+const { value, unit, label, class: className } = Astro.props;
+---
+
+<div class:list={['flex flex-col', className]}>
+  <p class="font-mono text-3xl font-medium tabular-nums text-ink">
+    {value}{unit && <span class="ml-1 text-lg text-zinc">{unit}</span>}
+  </p>
+  <p class="mt-1 text-sm text-zinc">{label}</p>
+</div>

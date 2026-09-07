@@ -1,0 +1,34 @@
+---
+// The recurring "Horizont" layout device: a 50/50 composition with a
+// hard edge, never a gradient. --c-sage is deliberately not offered
+// here as a panel background — tokens.css marks it SURFACES ONLY, not
+// for large text-bearing panels; use it for small surface/illustration
+// elements instead (icon chips, badges).
+interface Props {
+  aBackground?: 'ink' | 'paper' | 'mist' | 'petrol';
+  bBackground?: 'ink' | 'paper' | 'mist' | 'petrol';
+  class?: string;
+}
+
+const { aBackground = 'ink', bBackground = 'paper', class: className } = Astro.props;
+
+const bgMap = {
+  ink: 'bg-ink text-mist',
+  paper: 'bg-paper text-ink-2',
+  mist: 'bg-mist text-ink-2',
+  petrol: 'bg-petrol text-paper',
+};
+---
+
+<div class:list={['grid lg:grid-cols-2', className]}>
+  <div class:list={['flex flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24', bgMap[aBackground]]}>
+    <div class="mx-auto w-full max-w-xl">
+      <slot name="a" />
+    </div>
+  </div>
+  <div class:list={['flex flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24', bgMap[bBackground]]}>
+    <div class="mx-auto w-full max-w-xl">
+      <slot name="b" />
+    </div>
+  </div>
+</div>

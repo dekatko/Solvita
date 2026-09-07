@@ -1,0 +1,118 @@
+---
+import logoMarkup from '../assets/logo-placeholder.svg?raw';
+import { business } from '../lib/business';
+
+const leistungen = [
+  { href: '/stromspeicher/', label: 'Stromspeicher' },
+  { href: '/waermepumpe/', label: 'Wärmepumpe' },
+  { href: '/wallboxen/', label: 'Wallboxen' },
+  { href: '/klimaanlage/', label: 'Klimaanlage' },
+  { href: '/smart-home/', label: 'Smart Home' },
+  { href: '/baustromkasten/', label: 'Baustromkasten' },
+  { href: '/energie-gebaeudetechnik/', label: 'Energie- & Gebäudetechnik' },
+];
+
+const standorte = [
+  { href: '/photovoltaik-wolfsburg/', label: 'Wolfsburg' },
+  { href: '/photovoltaik-gifhorn/', label: 'Gifhorn' },
+  { href: '/photovoltaik-braunschweig/', label: 'Braunschweig' },
+  { href: '/photovoltaik-helmstedt/', label: 'Helmstedt' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-paper/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+    <a href="/" class="flex items-center gap-2 text-ink" aria-label="SolVita — Startseite">
+      <span class="h-9 w-9 text-petrol" set:html={logoMarkup} />
+      <span class="font-display text-lg font-semibold tracking-[var(--tracking-display)]">SolVita</span>
+    </a>
+
+    <nav aria-label="Hauptnavigation" class="hidden items-center gap-1 text-sm font-medium text-ink-2 lg:flex">
+      <a href="/photovoltaikanlage/" class="rounded-md px-3 py-2 hover:bg-mist hover:text-ink">Photovoltaik</a>
+
+      <div class="group relative">
+        <button type="button" class="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-mist hover:text-ink">
+          Leistungen
+          <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M5.5 7.5 10 12l4.5-4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="invisible absolute left-0 top-full grid w-64 gap-0.5 rounded-md border border-line bg-paper p-2 opacity-0 shadow-[var(--shadow)] transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+          {leistungen.map((item) => (
+            <a href={item.href} class="rounded-md px-3 py-2 hover:bg-mist hover:text-ink">{item.label}</a>
+          ))}
+        </div>
+      </div>
+
+      <div class="group relative">
+        <button type="button" class="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-mist hover:text-ink">
+          Standorte
+          <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M5.5 7.5 10 12l4.5-4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="invisible absolute left-0 top-full grid w-56 gap-0.5 rounded-md border border-line bg-paper p-2 opacity-0 shadow-[var(--shadow)] transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+          {standorte.map((item) => (
+            <a href={item.href} class="rounded-md px-3 py-2 hover:bg-mist hover:text-ink">{item.label}</a>
+          ))}
+        </div>
+      </div>
+
+      <a href="/referenzen/" class="rounded-md px-3 py-2 hover:bg-mist hover:text-ink">Referenzen</a>
+      <a href="/ratgeber/" class="rounded-md px-3 py-2 hover:bg-mist hover:text-ink">Ratgeber</a>
+      <a href="/ueber-uns/" class="rounded-md px-3 py-2 hover:bg-mist hover:text-ink">Über uns</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href={business.phoneHref} class="text-sm font-semibold text-ink hover:text-petrol">
+        {business.phoneDisplay}
+      </a>
+      <a
+        href="/kontakt/"
+        class="hidden rounded-[var(--radius-md)] bg-petrol px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-petrol-dk sm:inline-block"
+      >
+        Kontakt
+      </a>
+      <button
+        type="button"
+        id="mobile-nav-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        class="flex h-9 w-9 items-center justify-center rounded-md text-ink hover:bg-mist lg:hidden"
+      >
+        <span class="sr-only">Menü öffnen</span>
+        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" aria-label="Mobile Navigation" hidden class="border-t border-line bg-paper lg:hidden">
+    <div class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 text-sm font-medium text-ink-2">
+      <a href="/photovoltaikanlage/" class="rounded-md px-3 py-2 hover:bg-mist">Photovoltaik</a>
+      <p class="mt-2 px-3 text-xs font-semibold uppercase tracking-[var(--tracking-label)] text-zinc">Leistungen</p>
+      {leistungen.map((item) => (
+        <a href={item.href} class="rounded-md px-3 py-2 hover:bg-mist">{item.label}</a>
+      ))}
+      <p class="mt-2 px-3 text-xs font-semibold uppercase tracking-[var(--tracking-label)] text-zinc">Standorte</p>
+      {standorte.map((item) => (
+        <a href={item.href} class="rounded-md px-3 py-2 hover:bg-mist">{item.label}</a>
+      ))}
+      <div class="mt-2 h-px bg-line"></div>
+      <a href="/referenzen/" class="rounded-md px-3 py-2 hover:bg-mist">Referenzen</a>
+      <a href="/ratgeber/" class="rounded-md px-3 py-2 hover:bg-mist">Ratgeber</a>
+      <a href="/ueber-uns/" class="rounded-md px-3 py-2 hover:bg-mist">Über uns</a>
+      <a href="/jobs/" class="rounded-md px-3 py-2 hover:bg-mist">Jobs</a>
+      <a href="/faq/" class="rounded-md px-3 py-2 hover:bg-mist">FAQ</a>
+      <a href="/kontakt/" class="mt-2 rounded-[var(--radius-md)] bg-petrol px-3 py-2 text-center font-semibold text-paper hover:bg-petrol-dk">Kontakt</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-nav-toggle');
+  const nav = document.getElementById('mobile-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    if (nav) nav.hidden = isOpen;
+  });
+</script>

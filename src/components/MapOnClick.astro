@@ -1,0 +1,51 @@
+---
+// Renders a static placeholder; the Google Maps iframe is only created
+// after an explicit click, so the map never causes a network request
+// on page load. No API key needed — uses Maps' keyless embed query.
+import { business } from '../lib/business';
+
+const address = `${business.street}, ${business.postalCode} ${business.city}`;
+const mapsEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+---
+
+<div
+  id="map-on-click"
+  data-src={mapsEmbedSrc}
+  class="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-[var(--radius-md)] border border-line bg-mist"
+>
+  <div class="pointer-events-none absolute inset-0 opacity-40" style="background-image: repeating-linear-gradient(45deg, var(--c-line) 0 1px, transparent 1px 24px), repeating-linear-gradient(-45deg, var(--c-line) 0 1px, transparent 1px 24px);"></div>
+  <button
+    type="button"
+    id="map-on-click-button"
+    class="relative z-10 inline-flex items-center gap-2 rounded-[var(--radius-md)] bg-petrol px-5 py-2.5 text-sm font-semibold text-paper hover:bg-petrol-dk"
+  >
+    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+      <path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </svg>
+    Karte laden
+  </button>
+  <p class="absolute bottom-3 left-1/2 z-10 -translate-x-1/2 text-xs text-zinc">
+    Lädt eine Karte von Google Maps. Es findet keine Verbindung statt, bevor Sie klicken.
+  </p>
+</div>
+
+<script>
+  const wrapper = document.getElementById('map-on-click');
+  const button = document.getElementById('map-on-click-button');
+
+  button?.addEventListener('click', () => {
+    if (!wrapper) return;
+    const src = wrapper.dataset.src;
+    if (!src) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.title = 'SolVita auf Google Maps';
+    iframe.className = 'absolute inset-0 h-full w-full border-0';
+
+    wrapper.replaceChildren(iframe);
+  });
+</script>

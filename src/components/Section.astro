@@ -1,0 +1,20 @@
+---
+interface Props {
+  background?: 'paper' | 'mist' | 'ink';
+  class?: string;
+}
+
+const { background = 'paper', class: className } = Astro.props;
+
+const bgMap = {
+  paper: 'bg-paper text-ink-2',
+  mist: 'bg-mist text-ink-2',
+  ink: 'bg-ink text-mist',
+};
+---
+
+<section class:list={[bgMap[background]]}>
+  <div class:list={['mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16', className]}>
+    <slot />
+  </div>
+</section>

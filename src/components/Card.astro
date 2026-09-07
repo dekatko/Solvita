@@ -1,0 +1,21 @@
+---
+interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+const classes = ['block rounded-[var(--radius-md)] border border-line bg-paper p-6 shadow-[var(--shadow)]', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{href ? (
+  <a href={href} class={`${classes} transition-shadow hover:shadow-[0_1px_2px_rgba(20,37,35,.06),_0_16px_40px_-20px_rgba(20,37,35,.5)]`}>
+    <slot />
+  </a>
+) : (
+  <div class={classes}>
+    <slot />
+  </div>
+)}
