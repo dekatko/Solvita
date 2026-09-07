@@ -1,0 +1,16 @@
+# Cloudflare Pages redirects — from CLAUDE.md's redirect table, verbatim.
+/pv-anlagen/                       /photovoltaikanlage/          301
+/energie-gebaeudetechni/           /energie-gebaeudetechnik/     301
+/allgemeine-geschaefsbedingungen/  /agb/                         301
+/daniel-weiss/                     /ueber-uns/                   301
+/leistungen/                       /#leistungen                  301
+
+# TODO(daniel): /leistungen/drohnenaufnahmen/ isn't in CLAUDE.md's route
+# table and doesn't exist on the new site — either build that page or
+# point this redirect somewhere real before launch, otherwise it's a
+# 301 straight into a 404.
+/gebaeude-3d-bilder/               /leistungen/drohnenaufnahmen/ 301
+
+# hello-world is the WordPress default post, still live on the old site.
+# It must leave the index, not pass link equity — 410, not 301.
+/2024/07/03/hello-world/           /                              410

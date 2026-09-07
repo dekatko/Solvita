@@ -1,44 +1,43 @@
-# SolVita — Website Rebuild (v1)
+# Astro Starter Kit: Minimal
 
-Rebuilt marketing site for SolVita (Photovoltaik/Solaranlagen, Wolfsburg), replacing the previous WordPress/Elementor site at energy-solvita.de. Built with [Astro](https://astro.build) + Tailwind CSS for near-zero shipped JS and strong Core Web Vitals/SEO.
-
-**This is local scaffolding only — nothing here has been deployed.** All copy is grounded in facts pulled from the live site but rewritten; every page carries a `<!-- REVIEW: verify facts, pricing, brand names before publishing -->` marker and every unconfirmed fact is a bracketed `[TODO: ...]` / `[Preis auf Anfrage]` placeholder. A human fact-check pass against the real business is required before publishing.
-
-## Project structure
-
-```text
-src/
-  content.config.ts       content collection schemas (standorte, ratgeber)
-  content/
-    standorte/             one .md per town (Wolfsburg, Gifhorn, Helmstedt, Braunschweig)
-    ratgeber/               blog/guide articles (incl. Förderung in Niedersachsen)
-  data/                    single-source data: NAP, FAQ, services, testimonials
-  components/              BaseHead (SEO), Header, Footer, Breadcrumbs, ServiceLinks,
-                           LocationLinks, FaqList, Testimonials, CTA, Icon, SiteImage
-  layouts/Layout.astro     base layout, <html lang="de">
-  pages/                   all routes, incl. dynamic /standorte/[slug]/ and /ratgeber/[slug]/
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-## SEO implementation
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-- `BaseHead.astro` sets title/description/canonical/Open Graph per page (props, no duplication).
-- JSON-LD: `LocalBusiness` (site-wide, in the footer), `FAQPage` (`/faq/`), `Review`/`AggregateRating` (`/referenzen/`), `BreadcrumbList` (`/standorte/*`, `/ratgeber/*`).
-- `@astrojs/sitemap` generates `sitemap-index.xml` on build; `public/robots.txt` allows all crawling and links to it.
-- `SiteImage.astro` requires `alt` as a typed prop and warns in dev if it's ever empty.
-- `ServiceLinks`/`LocationLinks` cross-link every `/standorte/*` page to `/leistungen/*` pages and vice versa.
+## 🚀 Project Structure
 
-## Commands
+Inside of your Astro project, you'll see the following folders and files:
 
-| Command           | Action                                      |
-| :----------------- | :------------------------------------------ |
-| `npm install`       | Install dependencies                        |
-| `npm run dev`       | Start local dev server at `localhost:4321`  |
-| `npm run build`     | Build production site to `./dist/`          |
-| `npm run preview`   | Preview the build locally                   |
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
+```
 
-## Known gaps before publishing
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-- Handelsregister number and USt-IdNr. were not published on the live site — confirm and add to `src/data/nap.ts`, `/impressum/`.
-- Datenschutzerklärung is a placeholder — needs a proper legal review.
-- Brand/partner list (Sungrow, Huawei, Deye, EcoFlow, K2 Systems, Heidelberg, myenergi, Loxone) was scraped from the homepage and should be reconfirmed.
-- No photography is included (nothing was downloaded from the old site); real project photos should replace the icon/gradient-based visuals via `SiteImage.astro`.
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+
+Any static assets, like images, can be placed in the `public/` directory.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

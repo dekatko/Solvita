@@ -1,111 +1,93 @@
 ---
-import { nap } from '../data/nap';
-import { services } from '../data/services';
-import { getCollection } from 'astro:content';
+import logoMarkup from '../assets/logo-placeholder.svg?raw';
+import { business } from '../lib/business';
 
-const standorte = await getCollection('standorte');
-
-const localBusinessSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': `${Astro.site}#business`,
-  name: nap.legalName,
-  image: `${Astro.site}og-default.svg`,
-  url: Astro.site?.toString(),
-  telephone: nap.phone,
-  email: nap.email,
-  address: {
-    '@type': 'PostalAddress',
-    // TODO: confirm exact address/phone/hours before publishing
-    streetAddress: nap.street,
-    postalCode: nap.postalCode,
-    addressLocality: nap.city,
-    addressRegion: nap.region,
-    addressCountry: nap.country,
-  },
-  areaServed: nap.serviceArea,
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '08:00',
-      closes: '17:00',
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Saturday'],
-      opens: '10:00',
-      closes: '14:00',
-    },
-  ],
-  founder: {
-    '@type': 'Person',
-    name: nap.founder,
-  },
-};
+// This NAP block must match the address/telephone fields in the
+// Electrician JSON-LD (src/lib/schema.ts) byte-for-byte — both read
+// from src/lib/business.ts, so there is only one place to edit.
 ---
 
-<footer class="border-t border-ink-100 bg-ink-900 text-ink-100">
+<footer class="border-t border-line bg-ink text-mist">
   <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
     <div>
-      <p class="text-lg font-bold text-white">{nap.brandName}</p>
-      <p class="mt-3 text-sm leading-relaxed text-ink-300">
-        Photovoltaik, Stromspeicher und Gebäudetechnik für {nap.region} — aus {nap.city}, für Privathaushalte, Unternehmen, Landwirte und Kommunen.
+      <div class="flex items-center gap-2 text-paper">
+        <span class="h-8 w-8 text-sage" set:html={logoMarkup} />
+        <span class="font-display text-lg font-semibold">SolVita</span>
+      </div>
+      <p class="mt-3 max-w-xs text-sm leading-[var(--lh-body)] text-mist/80">
+        Photovoltaik, Speicher, Wallboxen und Gebäudetechnik vom Elektrofachbetrieb aus Wolfsburg.
       </p>
     </div>
 
-    <div>
-      <p class="text-sm font-semibold text-white">Leistungen</p>
-      <ul class="mt-3 space-y-2 text-sm text-ink-300">
-        {services.map((service) => (
-          <li><a href={`/leistungen/${service.slug}/`} class="hover:text-white">{service.title}</a></li>
-        ))}
+    <nav aria-label="Leistungen">
+      <p class="text-sm font-semibold text-paper">Leistungen</p>
+      <ul class="mt-3 space-y-2 text-sm text-mist/80">
+        <li><a href="/photovoltaikanlage/" class="hover:text-paper">Photovoltaikanlage</a></li>
+        <li><a href="/stromspeicher/" class="hover:text-paper">Stromspeicher</a></li>
+        <li><a href="/waermepumpe/" class="hover:text-paper">Wärmepumpe</a></li>
+        <li><a href="/wallboxen/" class="hover:text-paper">Wallboxen</a></li>
+        <li><a href="/klimaanlage/" class="hover:text-paper">Klimaanlage</a></li>
+        <li><a href="/smart-home/" class="hover:text-paper">Smart Home</a></li>
+        <li><a href="/baustromkasten/" class="hover:text-paper">Baustromkasten</a></li>
+        <li><a href="/energie-gebaeudetechnik/" class="hover:text-paper">Energie- & Gebäudetechnik</a></li>
       </ul>
-    </div>
+    </nav>
+
+    <nav aria-label="Unternehmen">
+      <p class="text-sm font-semibold text-paper">Unternehmen</p>
+      <ul class="mt-3 space-y-2 text-sm text-mist/80">
+        <li><a href="/ueber-uns/" class="hover:text-paper">Über uns</a></li>
+        <li><a href="/jobs/" class="hover:text-paper">Jobs</a></li>
+        <li><a href="/referenzen/" class="hover:text-paper">Referenzen</a></li>
+        <li><a href="/ratgeber/" class="hover:text-paper">Ratgeber</a></li>
+        <li><a href="/faq/" class="hover:text-paper">FAQ</a></li>
+        <li><a href="/kontakt/" class="hover:text-paper">Kontakt</a></li>
+      </ul>
+      <p class="mt-5 text-sm font-semibold text-paper">Standorte</p>
+      <ul class="mt-3 space-y-2 text-sm text-mist/80">
+        <li><a href="/photovoltaik-wolfsburg/" class="hover:text-paper">Wolfsburg</a></li>
+        <li><a href="/photovoltaik-gifhorn/" class="hover:text-paper">Gifhorn</a></li>
+        <li><a href="/photovoltaik-braunschweig/" class="hover:text-paper">Braunschweig</a></li>
+        <li><a href="/photovoltaik-helmstedt/" class="hover:text-paper">Helmstedt</a></li>
+      </ul>
+    </nav>
 
     <div>
-      <p class="text-sm font-semibold text-white">Standorte</p>
-      <ul class="mt-3 space-y-2 text-sm text-ink-300">
-        {standorte.map((standort) => (
-          <li><a href={`/standorte/${standort.id}/`} class="hover:text-white">{standort.data.city}</a></li>
-        ))}
-      </ul>
-      <p class="mt-4 text-sm font-semibold text-white">Unternehmen</p>
-      <ul class="mt-3 space-y-2 text-sm text-ink-300">
-        <li><a href="/ueber-uns/" class="hover:text-white">Über uns</a></li>
-        <li><a href="/jobs/" class="hover:text-white">Jobs</a></li>
-        <li><a href="/referenzen/" class="hover:text-white">Referenzen</a></li>
-        <li><a href="/ratgeber/" class="hover:text-white">Ratgeber</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <p class="text-sm font-semibold text-white">Kontakt</p>
-      <address class="mt-3 space-y-1 text-sm not-italic text-ink-300">
-        <p>{nap.legalName}</p>
-        <p>{nap.street}</p>
-        <p>{nap.postalCode} {nap.city}</p>
-        <p class="pt-2"><a href={nap.phoneHref} class="hover:text-white">{nap.phone}</a></p>
-        <p><a href={`mailto:${nap.email}`} class="hover:text-white">{nap.email}</a></p>
+      <p class="text-sm font-semibold text-paper">Kontakt</p>
+      <address class="mt-3 space-y-1 text-sm not-italic text-mist/80">
+        <p>SolVita</p>
+        <p>{business.street}</p>
+        <p>{business.postalCode} {business.city}</p>
+        <p class="pt-2"><a href={business.phoneHref} class="hover:text-paper">{business.phoneDisplay}</a></p>
+        <p><a href={`mailto:${business.email}`} class="hover:text-paper">{business.email}</a></p>
+        <p><a href={business.whatsapp} class="hover:text-paper" rel="nofollow">WhatsApp</a></p>
       </address>
+      <ul class="mt-3 space-y-1 text-sm text-mist/80">
+        {business.hours.map((slot) => (
+          <li class="flex justify-between gap-4">
+            <span>{slot.days}</span>
+            <span class="font-mono">{slot.time}</span>
+          </li>
+        ))}
+      </ul>
       <a
-        href="/kontakt/"
-        class="mt-4 inline-block rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-500"
+        href={business.instagram}
+        class="mt-4 inline-flex items-center gap-2 text-sm text-mist/80 hover:text-paper"
+        rel="nofollow me"
       >
-        Kostenlose Beratung anfragen
+        Instagram
       </a>
     </div>
   </div>
 
   <div class="border-t border-white/10">
-    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-      <p>&copy; {new Date().getFullYear()} {nap.brandName}. Alle Rechte vorbehalten.</p>
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-mist/60 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p>&copy; {new Date().getFullYear()} SolVita</p>
       <div class="flex gap-4">
-        <a href="/impressum/" class="hover:text-white">Impressum</a>
-        <a href="/datenschutz/" class="hover:text-white">Datenschutz</a>
+        <a href="/impressum/" class="hover:text-paper">Impressum</a>
+        <a href="/datenschutz/" class="hover:text-paper">Datenschutz</a>
+        <a href="/agb/" class="hover:text-paper">AGB</a>
       </div>
     </div>
   </div>
 </footer>
-
-<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />

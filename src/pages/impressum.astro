@@ -1,40 +1,39 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { nap } from '../data/nap';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business } from '../lib/business';
 ---
 
-<!-- REVIEW: verify facts, pricing, brand names before publishing -->
-<Layout title="Impressum" description="Impressum von SolVita gemäß § 5 TMG." noindex>
-  <section class="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-    <h1 class="text-h1 font-bold text-ink-900">Impressum</h1>
+<!-- TODO(daniel): verify facts before publishing — legal form, Handelsregister, USt-IdNr. missing -->
+<BaseLayout
+  title="Impressum"
+  description="Impressum von SolVita gemäß Paragraf 5 Telemediengesetz — Anbieterkennzeichnung, Kontaktangaben und rechtliche Hinweise zu dieser Website im Überblick."
+>
+  <section class="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Impressum</h1>
 
-    <div class="mt-8 space-y-6 text-ink-700">
-      <div>
-        <h2 class="font-semibold text-ink-900">Angaben gemäß § 5 TMG</h2>
-        <p class="mt-1">{nap.legalName}</p>
-        <p>{nap.founder}</p>
-        <p>{nap.street}</p>
-        <p>{nap.postalCode} {nap.city}</p>
-      </div>
+    <div class="md-content mt-8">
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <p>SolVita</p>
+      <p>{business.legalContact}, {business.legalContactTitle}</p>
+      <p>{business.street}</p>
+      <p>{business.postalCode} {business.city}</p>
+      <p>[TODO(daniel): Rechtsform ergänzen — z. B. Einzelunternehmen, GmbH]</p>
 
-      <div>
-        <h2 class="font-semibold text-ink-900">Kontakt</h2>
-        <p class="mt-1">Telefon: {nap.phone}</p>
-        <p>E-Mail: {nap.email}</p>
-      </div>
+      <h2>Kontakt</h2>
+      <p>Telefon: {business.phoneDisplay}</p>
+      <p>E-Mail: {business.email}</p>
 
-      <div>
-        <h2 class="font-semibold text-ink-900">Registereintrag</h2>
-        <p class="mt-1">{nap.handelsregister}</p>
-        <p>{nap.ustId}</p>
-      </div>
+      <h2>Registereintrag</h2>
+      <p>[TODO(daniel): Handelsregisternummer ergänzen, falls zutreffend]</p>
+      <p>[TODO(daniel): USt-IdNr. ergänzen]</p>
 
-      <div>
-        <h2 class="font-semibold text-ink-900">Verbraucherstreitbeilegung</h2>
-        <p class="mt-1">
-          Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
-        </p>
-      </div>
+      <h2>Zuständige Handwerkskammer</h2>
+      <p>[TODO(daniel): zuständige Handwerkskammer und Eintragung ergänzen]</p>
+
+      <h2>Verbraucherstreitbeilegung</h2>
+      <p>
+        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
     </div>
   </section>
-</Layout>
+</BaseLayout>

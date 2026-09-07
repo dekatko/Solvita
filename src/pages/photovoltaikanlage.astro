@@ -1,0 +1,9 @@
+---
+import { getEntry } from 'astro:content';
+import LeistungLayout from '../layouts/LeistungLayout.astro';
+
+const entry = await getEntry('leistungen', 'photovoltaikanlage');
+if (!entry) throw new Error('Missing leistungen entry: photovoltaikanlage');
+---
+
+<LeistungLayout entry={entry} />

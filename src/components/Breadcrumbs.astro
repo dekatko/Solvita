@@ -1,42 +1,28 @@
 ---
-// Visual breadcrumb trail + matching BreadcrumbList JSON-LD, used on
-// /standorte/* and /ratgeber/* pages.
-interface Crumb {
-  label: string;
-  href: string;
-}
+import { breadcrumbSchema } from '../lib/schema';
 
 interface Props {
-  items: Crumb[];
+  items: { label: string; href: string }[];
+  class?: string;
 }
 
-const { items } = Astro.props;
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: items.map((item, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    name: item.label,
-    item: new URL(item.href, Astro.site).toString(),
-  })),
-};
+const { items, class: className } = Astro.props;
+const schema = breadcrumbSchema(items);
 ---
 
-<nav aria-label="Breadcrumb" class="mx-auto max-w-6xl px-4 pt-6 text-sm text-ink-500 sm:px-6">
+<nav aria-label="Breadcrumb" class:list={['mx-auto max-w-6xl px-4 pt-6 text-sm text-zinc sm:px-6', className]}>
   <ol class="flex flex-wrap items-center gap-1">
     {items.map((item, index) => (
       <li class="flex items-center gap-1">
         {index > 0 && <span aria-hidden="true">/</span>}
         {index === items.length - 1 ? (
-          <span class="font-medium text-ink-700" aria-current="page">{item.label}</span>
+          <span class="font-medium text-ink" aria-current="page">{item.label}</span>
         ) : (
-          <a href={item.href} class="hover:text-brand-700">{item.label}</a>
+          <a href={item.href} class="hover:text-petrol">{item.label}</a>
         )}
       </li>
     ))}
   </ol>
 </nav>
 
-<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

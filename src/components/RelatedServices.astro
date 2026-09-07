@@ -1,0 +1,33 @@
+---
+// Internal linking: every content page links to at least one related
+// /leistungen/ page (route == collection entry id for all of these).
+import { getCollection } from 'astro:content';
+
+interface Props {
+  exclude?: string;
+  count?: number;
+  heading?: string;
+}
+
+const { exclude, count = 3, heading = 'Das könnte Sie auch interessieren' } = Astro.props;
+
+const all = await getCollection('leistungen');
+const items = all.filter((entry) => entry.id !== exclude).slice(0, count);
+---
+
+<section class="rounded-[var(--radius-md)] border border-line bg-mist/60 p-6 sm:p-8">
+  <h2 class="font-display text-xl font-semibold text-ink">{heading}</h2>
+  <ul class="mt-5 grid gap-4 sm:grid-cols-3">
+    {items.map((item) => (
+      <li>
+        <a
+          href={`/${item.id}/`}
+          class="block h-full rounded-[var(--radius-md)] bg-paper p-4 shadow-[var(--shadow)] transition-shadow hover:shadow-[0_1px_2px_rgba(20,37,35,.06),_0_16px_40px_-20px_rgba(20,37,35,.5)]"
+        >
+          <span class="font-semibold text-ink">{item.data.h1}</span>
+          <span class="mt-1 block text-sm text-zinc">{item.data.summary}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

@@ -1,44 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import FaqList from '../components/FaqList.astro';
-import CTA from '../components/CTA.astro';
-import { faqItems } from '../data/faq';
-
-// Strip Markdown links for the JSON-LD text (structured data should be plain text).
-const plainAnswer = (answer: string) => answer.replace(/\[(.+?)\]\(.+?\)/g, '$1');
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: plainAnswer(item.answer),
-    },
-  })),
-};
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import RelatedServices from '../components/RelatedServices.astro';
+import { faqItems } from '../lib/faq';
 ---
 
-<!-- REVIEW: verify facts, pricing, brand names before publishing -->
-<Layout
-  title="Häufige Fragen zu Photovoltaik"
-  description="Antworten auf häufige Fragen zu Photovoltaikanlagen, Stromspeichern, Baugenehmigungen, Förderung und Garantien — beantwortet von SolVita."
+<BaseLayout
+  title="Photovoltaik FAQ: Kosten, Technik, Förderung"
+  description="Die 15 häufigsten Fragen zu Photovoltaik, Speicher und Einspeisung — kurz beantwortet vom Fachbetrieb, ohne Verkaufssprache und ohne Fachchinesisch."
 >
-  <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
-    <h1 class="text-h1 font-bold text-ink-900">Häufige Fragen</h1>
-    <p class="mt-4 text-lead text-ink-600">
-      Antworten auf die Fragen, die uns Kundinnen und Kunden am häufigsten zu Photovoltaik, Speicher und Förderung stellen.
+  <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'FAQ', href: '/faq/' }]} />
+
+  <section class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Häufige Fragen</h1>
+    <p class="mt-4 text-lg text-ink-2">
+      Antworten auf die 15 Fragen, die uns am häufigsten zu Photovoltaik, Speicher und Einspeisung gestellt werden.
     </p>
-    <div class="mt-10">
-      <FaqList items={faqItems} />
+    <div class="mt-8">
+      <Faq items={faqItems} />
     </div>
   </section>
 
-  <div class="pb-16">
-    <CTA heading="Ihre Frage war nicht dabei?" text="Schreiben oder rufen Sie uns an — wir beantworten sie gerne persönlich." />
-  </div>
-
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-</Layout>
+  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+    <RelatedServices heading="Unsere Leistungen" count={3} />
+  </section>
+</BaseLayout>

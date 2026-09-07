@@ -1,8 +1,8 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import CTA from '../../components/CTA.astro';
+import Button from '../../components/Button.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('ratgeber');
@@ -14,28 +14,44 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, metaDescription, publishDate } = entry.data;
+const relatedService = await getEntry('leistungen', entry.data.relatedService);
 ---
 
-<!-- REVIEW: verify facts, pricing, brand names before publishing -->
-<Layout title={title} description={metaDescription}>
-  <Breadcrumbs items={[
-    { label: 'Start', href: '/' },
-    { label: 'Ratgeber', href: '/ratgeber/' },
-    { label: title, href: `/ratgeber/${entry.id}/` },
-  ]} />
+<BaseLayout title={entry.data.title} description={entry.data.description} noindex={entry.data.draft}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: '/' },
+      { label: 'Ratgeber', href: '/ratgeber/' },
+      { label: entry.data.h1, href: `/ratgeber/${entry.id}/` },
+    ]}
+  />
+
+  {entry.data.draft && (
+    <div class="mx-auto max-w-3xl px-4 pt-6 sm:px-6">
+      <p class="rounded-[var(--radius-md)] border border-warn bg-warn/10 px-4 py-3 text-sm font-medium text-ink">
+        Entwurf — noch nicht veröffentlicht (noindex).
+      </p>
+    </div>
+  )}
 
   <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-    <time class="text-xs font-medium uppercase tracking-wide text-ink-400" datetime={publishDate.toISOString()}>
-      {publishDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
+    <time class="text-xs font-medium uppercase tracking-[var(--tracking-label)] text-zinc" datetime={entry.data.publishDate.toISOString()}>
+      {entry.data.publishDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
     </time>
-    <h1 class="mt-3 text-h1 font-bold text-ink-900">{title}</h1>
+    <h1 class="mt-3 text-3xl font-semibold text-ink">{entry.data.h1}</h1>
     <div class="md-content mt-8">
       <Content />
     </div>
   </article>
 
-  <div class="pb-16">
-    <CTA />
-  </div>
-</Layout>
+  {relatedService && (
+    <div class="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
+      <div class="rounded-[var(--radius-md)] border border-line bg-mist/60 p-6 sm:p-8">
+        <p class="text-sm font-semibold uppercase tracking-[var(--tracking-label)] text-ink-2">Passende Leistung</p>
+        <h2 class="mt-2 font-display text-xl font-semibold text-ink">{relatedService.data.h1}</h2>
+        <p class="mt-2 text-sm text-ink-2">{relatedService.data.summary}</p>
+        <Button href={`/${relatedService.id}/`} class="mt-4">Mehr erfahren</Button>
+      </div>
+    </div>
+  )}
+</BaseLayout>

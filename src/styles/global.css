@@ -1,119 +1,130 @@
 @import "tailwindcss";
+@import "./fonts.css";
+@import "./tokens.css";
 
 /*
-  SolVita design system tokens.
-  Small, deliberate palette (greens = solar/energy, blues = trust/sky)
-  plus a constrained type scale, defined once here rather than as
-  ad hoc utility values scattered across pages.
+  Wires tokens.css into Tailwind v4's utility generator via @theme.
+  Every value here is `var(--c-*)` etc. pointing back at tokens.css —
+  nothing is redefined or re-guessed, so tokens.css stays the single
+  source of truth and CLAUDE.md stays authoritative over both.
+
+  Not aliased here, used directly instead:
+  - --lh-tight / --lh-body   → `leading-[var(--lh-tight)]` etc.
+  - --tracking-display / --tracking-label → `tracking-[var(--tracking-display)]` etc.
+    (their names already collide with the Tailwind key they'd need —
+    aliasing --tracking-display to itself is a circular reference)
+  - --shadow                 → `shadow-[var(--shadow)]` (same collision)
+  - --measure                → `max-w-[var(--measure)]`
+  - --s-1..--s-16            → these already equal Tailwind's default spacing
+    scale in px (s-1=8px=p-2, s-2=16px=p-4, s-3=24px=p-6, s-4=32px=p-8,
+    s-6=48px=p-12, s-8=64px=p-16, s-12=96px=p-24, s-16=128px=p-32) — use
+    Tailwind's native spacing utilities directly, no wiring needed.
 */
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-sage: var(--c-sage);
+  --color-petrol: var(--c-petrol);
+  --color-petrol-dk: var(--c-petrol-dk);
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-paper: var(--c-paper);
+  --color-mist: var(--c-mist);
+  --color-line: var(--c-line);
+  --color-zinc: var(--c-zinc);
+  --color-yield: var(--c-yield);
+  --color-yield-ink: var(--c-yield-ink);
+  --color-ok: var(--c-ok);
+  --color-warn: var(--c-warn);
+  --color-crit: var(--c-crit);
 
-  /* Brand green — primary CTAs, active states, accents on dark backgrounds */
-  --color-brand-50: #f0faf3;
-  --color-brand-100: #dcf3e3;
-  --color-brand-200: #b8e6c8;
-  --color-brand-300: #86d1a3;
-  --color-brand-400: #4fb379;
-  --color-brand-500: #2c9459;
-  --color-brand-600: #1e7a47;
-  --color-brand-700: #19613a;
-  --color-brand-800: #164e31;
-  --color-brand-900: #12402a;
+  --font-display: var(--f-display);
+  --font-body: var(--f-body);
+  --font-mono: var(--f-mono);
 
-  /* Sky blue — secondary accents, links, info surfaces */
-  --color-sky-50: #f0f8fc;
-  --color-sky-100: #dcedf6;
-  --color-sky-200: #b7dcec;
-  --color-sky-300: #86c3dd;
-  --color-sky-400: #52a3c7;
-  --color-sky-500: #3485ac;
-  --color-sky-600: #286a8b;
-  --color-sky-700: #235771;
-  --color-sky-800: #21495e;
-  --color-sky-900: #1f3d4f;
+  --text-xs: var(--t-xs);
+  --text-sm: var(--t-sm);
+  --text-base: var(--t-base);
+  --text-lg: var(--t-lg);
+  --text-xl: var(--t-xl);
+  --text-2xl: var(--t-2xl);
+  --text-3xl: var(--t-3xl);
+  --text-4xl: var(--t-4xl);
 
-  /* Neutrals for text and surfaces */
-  --color-ink-50: #f7f8f7;
-  --color-ink-100: #eceeec;
-  --color-ink-200: #d7dbd7;
-  --color-ink-300: #b4bcb4;
-  --color-ink-400: #8b968b;
-  --color-ink-500: #6b766b;
-  --color-ink-600: #545e54;
-  --color-ink-700: #454d45;
-  --color-ink-800: #3a403a;
-  --color-ink-900: #23271f;
-
-  /* Constrained type scale on top of Tailwind's defaults */
-  --text-display: 3rem;
-  --text-display--line-height: 1.08;
-  --text-display--letter-spacing: -0.02em;
-  --text-h1: 2.25rem;
-  --text-h1--line-height: 1.15;
-  --text-h1--letter-spacing: -0.01em;
-  --text-h2: 1.75rem;
-  --text-h2--line-height: 1.2;
-  --text-h3: 1.375rem;
-  --text-h3--line-height: 1.3;
-  --text-lead: 1.1875rem;
-  --text-lead--line-height: 1.6;
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
 }
 
-html {
-  scroll-behavior: smooth;
+/*
+  These live in @layer base (which Tailwind's own @import declares)
+  rather than as unlayered rules. CSS Cascade Layers give ANY unlayered
+  rule priority over ALL layered rules regardless of specificity or
+  source order — so an unlayered `h1 { color: ... }` here would beat a
+  Tailwind utility like `text-paper` on a specific h1 every time. That
+  was a real bug (an invisible hero heading) before this was fixed.
+*/
+@layer base {
+  html {
+    hyphens: auto;
+  }
+
+  body {
+    font-family: var(--f-body);
+    color: var(--c-ink-2);
+    background-color: var(--c-paper);
+    line-height: var(--lh-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--f-display);
+    color: var(--c-ink);
+    line-height: var(--lh-tight);
+  }
 }
 
-body {
-  color: var(--color-ink-800);
-  background-color: #ffffff;
-}
+/* Rendered Markdown/MDX body copy (leistungen/orte/ratgeber collections) */
+@layer components {
+  .md-content {
+    max-width: var(--measure);
+  }
 
-/* Minimal prose styling for rendered Markdown content (standorte/ratgeber
-   collection bodies) — kept hand-written rather than pulling in the
-   Tailwind Typography plugin for a handful of elements. */
-.md-content > * + * {
-  margin-top: 1.1em;
-}
+  .md-content > * + * {
+    margin-top: 1.1em;
+  }
 
-.md-content h2 {
-  font-size: var(--text-h2);
-  line-height: var(--text-h2--line-height);
-  font-weight: 700;
-  color: var(--color-ink-900);
-  margin-top: 1.8em;
-}
+  .md-content h2 {
+    font-size: var(--t-2xl);
+    font-weight: 600;
+    margin-top: 1.8em;
+  }
 
-.md-content h3 {
-  font-size: var(--text-h3);
-  line-height: var(--text-h3--line-height);
-  font-weight: 700;
-  color: var(--color-ink-900);
-  margin-top: 1.5em;
-}
+  .md-content h3 {
+    font-size: var(--t-xl);
+    font-weight: 600;
+    margin-top: 1.5em;
+  }
 
-.md-content p,
-.md-content li {
-  color: var(--color-ink-700);
-  line-height: 1.7;
-}
+  .md-content p,
+  .md-content li {
+    line-height: var(--lh-body);
+  }
 
-.md-content ul,
-.md-content ol {
-  padding-left: 1.25em;
-}
+  .md-content ul {
+    list-style: disc;
+    padding-left: 1.25em;
+  }
 
-.md-content ul {
-  list-style: disc;
-}
+  .md-content ol {
+    list-style: decimal;
+    padding-left: 1.25em;
+  }
 
-.md-content ol {
-  list-style: decimal;
-}
+  .md-content a {
+    color: var(--c-petrol);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 
-.md-content a {
-  color: var(--color-brand-700);
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  .md-content strong {
+    color: var(--c-ink);
+  }
 }

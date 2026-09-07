@@ -1,14 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <circle cx="16" cy="16" r="16" fill="#1e7a47"/>
-  <circle cx="16" cy="16" r="6" fill="#fff"/>
-  <g stroke="#fff" stroke-width="2" stroke-linecap="round">
-    <line x1="16" y1="2" x2="16" y2="6"/>
-    <line x1="16" y1="26" x2="16" y2="30"/>
-    <line x1="2" y1="16" x2="6" y2="16"/>
-    <line x1="26" y1="16" x2="30" y2="16"/>
-    <line x1="6.3" y1="6.3" x2="9.1" y2="9.1"/>
-    <line x1="22.9" y1="22.9" x2="25.7" y2="25.7"/>
-    <line x1="25.7" y1="6.3" x2="22.9" y2="9.1"/>
-    <line x1="9.1" y1="22.9" x2="6.3" y2="25.7"/>
+<!-- PLACEHOLDER favicon, derived from src/assets/logo-placeholder.svg. Replace once the client supplies a real mark-only crop (see docs/OPEN-FACTS.md) — also generate 32/180/512 PNGs + site.webmanifest from that at the same time. -->
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <g fill="#142523">
+    <path fill-rule="evenodd" d="M100,12 A88,88 0 0 1 100,188 A88,88 0 0 1 100,12 Z M100,38 A62,62 0 0 1 100,162 A62,62 0 0 1 100,38 Z" />
+    <rect x="92" y="2" width="16" height="20" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(30 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(60 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(90 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(120 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(150 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(180 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(210 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(240 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(270 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(300 100 100)" />
+    <rect x="92" y="2" width="16" height="20" transform="rotate(330 100 100)" />
+    <path d="M54,100 A46,46 0 0 1 146,100 Z" />
   </g>
 </svg>

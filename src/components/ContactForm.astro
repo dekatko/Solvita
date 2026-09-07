@@ -1,0 +1,94 @@
+---
+// Progressive enhancement: the <form> posts natively to /api/kontakt
+// and works with zero JS. The script below intercepts submit (when JS
+// is available) for inline success/error state instead of a reload.
+// Spam defenses: a visually-hidden honeypot field (must stay empty)
+// and a timestamp trap (rejects submissions faster than a human could
+// fill the form) — both checked server-side in functions/api/kontakt.ts.
+// No CAPTCHA, no third-party embed, nothing stored server-side.
+---
+
+<form
+  id="contact-form"
+  method="post"
+  action="/api/kontakt"
+  class="space-y-4 rounded-[var(--radius-md)] border border-line bg-paper p-6 shadow-[var(--shadow)]"
+>
+  <div class="hidden" aria-hidden="true">
+    <label for="firma">Firma (bitte freilassen)</label>
+    <input type="text" id="firma" name="firma" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" name="loadedAt" id="loadedAt" value="" />
+
+  <div>
+    <label for="name" class="text-sm font-medium text-ink-2">Name</label>
+    <input
+      id="name" name="name" type="text" required autocomplete="name"
+      class="mt-1 w-full rounded-[var(--radius-sm)] border border-line px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
+    />
+  </div>
+  <div>
+    <label for="email" class="text-sm font-medium text-ink-2">E-Mail</label>
+    <input
+      id="email" name="email" type="email" required autocomplete="email"
+      class="mt-1 w-full rounded-[var(--radius-sm)] border border-line px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
+    />
+  </div>
+  <div>
+    <label for="phone" class="text-sm font-medium text-ink-2">Telefon (optional)</label>
+    <input
+      id="phone" name="phone" type="tel" autocomplete="tel"
+      class="mt-1 w-full rounded-[var(--radius-sm)] border border-line px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
+    />
+  </div>
+  <div>
+    <label for="message" class="text-sm font-medium text-ink-2">Ihr Anliegen</label>
+    <textarea
+      id="message" name="message" rows="4" required
+      class="mt-1 w-full rounded-[var(--radius-sm)] border border-line px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
+    ></textarea>
+  </div>
+
+  <button
+    type="submit"
+    class="w-full rounded-[var(--radius-md)] bg-petrol px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-petrol-dk"
+  >
+    Nachricht senden
+  </button>
+
+  <p id="contact-form-status" class="text-sm" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const loadedAt = document.getElementById('loadedAt') as HTMLInputElement | null;
+  const status = document.getElementById('contact-form-status');
+
+  if (loadedAt) loadedAt.value = String(Date.now());
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!status) return;
+
+    status.textContent = 'Wird gesendet …';
+    status.className = 'text-sm text-zinc';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!response.ok) throw new Error('request failed');
+
+      status.textContent = 'Danke! Ihre Nachricht ist angekommen — wir melden uns zeitnah.';
+      status.className = 'text-sm text-ok';
+      form.reset();
+      if (loadedAt) loadedAt.value = String(Date.now());
+    } catch {
+      status.textContent = 'Das hat leider nicht geklappt. Rufen Sie uns gerne direkt an oder versuchen Sie es erneut.';
+      status.className = 'text-sm text-crit';
+    }
+  });
+</script>

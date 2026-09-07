@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedServices from '../../components/RelatedServices.astro';
+
+// Intentionally empty until real project data arrives from the client —
+// never fabricate reference projects, their kWp, yield, or location.
+// See docs/OPEN-FACTS.md.
+const projects = await getCollection('referenzen');
+---
+
+<!-- TODO(daniel): reference projects (kWp, orientation, storage, yield, city, photos) needed before this page has real content -->
+<BaseLayout
+  title="Referenzen: PV-Anlagen aus der Region"
+  description="Umgesetzte Projekte mit echten Zahlen: Leistung in kWp, Dachausrichtung, Speichergröße und Jahresertrag — aus Wolfsburg, Gifhorn und Braunschweig."
+>
+  <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Referenzen', href: '/referenzen/' }]} />
+
+  <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Referenzen</h1>
+    <p class="mt-4 max-w-2xl text-lg text-ink-2">
+      Umgesetzte Photovoltaik-Projekte aus Wolfsburg, Gifhorn, Braunschweig und Helmstedt — mit echten Zahlen zu Leistung, Dachausrichtung, Speichergröße und Jahresertrag.
+    </p>
+
+    {projects.length === 0 ? (
+      <div class="mt-10 rounded-[var(--radius-md)] border border-line bg-mist/60 p-8 text-center">
+        <p class="text-ink-2">
+          Hier stellen wir in Kürze reale Projekte aus der Region mit konkreten Zahlen vor.
+        </p>
+      </div>
+    ) : (
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <a href={`/referenzen/${project.id}/`} class="block rounded-[var(--radius-md)] border border-line bg-paper p-6 shadow-[var(--shadow)]">
+            <h2 class="text-lg font-semibold text-ink">{project.data.h1}</h2>
+            <p class="mt-2 text-sm text-zinc">{project.data.city} · {project.data.kwp} kWp</p>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+    <RelatedServices heading="Unsere Leistungen" count={3} />
+  </section>
+</BaseLayout>
