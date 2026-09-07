@@ -19,6 +19,11 @@ const draftRatgeberSlugs = readdirSync(ratgeberDir)
   .filter((file) => /^draft:\s*true/m.test(readFileSync(join(ratgeberDir, file), 'utf-8')))
   .map((file) => file.replace(/\.(md|mdx)$/, ''));
 
+// Legal pages stay crawlable and indexable (footer-linked, no noindex)
+// but aren't worth submitting in the sitemap — they carry no ranking
+// value and aren't pages we want surfaced as separate search results.
+const excludedFromSitemap = ['/impressum/', '/datenschutz/', '/agb/'];
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://energy-solvita.de',
@@ -29,7 +34,9 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      filter: (page) => !draftRatgeberSlugs.some((slug) => page.includes(`/ratgeber/${slug}/`)),
+      filter: (page) =>
+        !draftRatgeberSlugs.some((slug) => page.includes(`/ratgeber/${slug}/`)) &&
+        !excludedFromSitemap.some((path) => page.includes(path)),
     }),
     mdx(),
   ]
