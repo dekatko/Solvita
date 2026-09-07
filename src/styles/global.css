@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./tokens.css";
+
+/*
+  Wires tokens.css into Tailwind v4's utility generator via @theme.
+  Every value here is `var(--c-*)` etc. pointing back at tokens.css —
+  nothing is redefined or re-guessed, so tokens.css stays the single
+  source of truth and CLAUDE.md stays authoritative over both.
+
+  Not aliased here, used directly instead:
+  - --lh-tight / --lh-body   → `leading-[var(--lh-tight)]` etc.
+  - --tracking-display / --tracking-label → `tracking-[var(--tracking-display)]` etc.
+    (their names already collide with the Tailwind key they'd need —
+    aliasing --tracking-display to itself is a circular reference)
+  - --shadow                 → `shadow-[var(--shadow)]` (same collision)
+  - --measure                → `max-w-[var(--measure)]`
+  - --s-1..--s-16            → these already equal Tailwind's default spacing
+    scale in px (s-1=8px=p-2, s-2=16px=p-4, s-3=24px=p-6, s-4=32px=p-8,
+    s-6=48px=p-12, s-8=64px=p-16, s-12=96px=p-24, s-16=128px=p-32) — use
+    Tailwind's native spacing utilities directly, no wiring needed.
+*/
+@theme {
+  --color-sage: var(--c-sage);
+  --color-petrol: var(--c-petrol);
+  --color-petrol-dk: var(--c-petrol-dk);
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-paper: var(--c-paper);
+  --color-mist: var(--c-mist);
+  --color-line: var(--c-line);
+  --color-zinc: var(--c-zinc);
+  --color-yield: var(--c-yield);
+  --color-yield-ink: var(--c-yield-ink);
+  --color-ok: var(--c-ok);
+  --color-warn: var(--c-warn);
+  --color-crit: var(--c-crit);
+
+  --font-display: var(--f-display);
+  --font-body: var(--f-body);
+  --font-mono: var(--f-mono);
+
+  --text-xs: var(--t-xs);
+  --text-sm: var(--t-sm);
+  --text-base: var(--t-base);
+  --text-lg: var(--t-lg);
+  --text-xl: var(--t-xl);
+  --text-2xl: var(--t-2xl);
+  --text-3xl: var(--t-3xl);
+  --text-4xl: var(--t-4xl);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+}
+
+html {
+  hyphens: auto;
+}
+
+body {
+  font-family: var(--f-body);
+  color: var(--c-ink-2);
+  background-color: var(--c-paper);
+  line-height: var(--lh-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--f-display);
+  color: var(--c-ink);
+  line-height: var(--lh-tight);
+}

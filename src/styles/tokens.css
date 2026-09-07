@@ -1,0 +1,44 @@
+/*
+  Design tokens — copied verbatim from CLAUDE.md. Do not edit values here
+  without updating CLAUDE.md first (CLAUDE.md is the source of truth).
+*/
+:root{
+  /* brand — one hue (174deg) at three lightnesses */
+  --c-sage:       #77B0AA;  /* the logo colour. SURFACES ONLY. */
+  --c-petrol:     #2C5B56;  /* text-safe brand: links, buttons, interactive text */
+  --c-petrol-dk:  #1F4340;  /* hover / pressed */
+  --c-ink:        #142523;  /* headings */
+  --c-ink-2:      #2E403D;  /* body text */
+
+  /* neutrals — faintly green-biased to sit under the brand */
+  --c-paper:      #F8F9F7;
+  --c-mist:       #E8EEEC;
+  --c-line:       #D3DDDA;
+  --c-zinc:       #63726F;  /* captions — 4.77:1 on paper */
+
+  /* data only — NOT brand colours */
+  --c-yield:      #C8873F;  /* chart marks and fills — 2.84:1, never text */
+  --c-yield-ink:  #9B6318;  /* the same note as text — 4.74:1 */
+
+  --c-ok:   #3E7D5C;
+  --c-warn: #A87A22;
+  --c-crit: #A8452F;
+
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body:    "Public Sans", system-ui, sans-serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --t-xs:.8125rem; --t-sm:.9375rem; --t-base:1.0625rem;
+  --t-lg:1.25rem;  --t-xl:1.5rem;   --t-2xl:2rem;
+  --t-3xl:2.75rem; --t-4xl:3.5rem;
+  --lh-tight:1.06; --lh-body:1.62;
+  --tracking-display:-.02em;  /* tight — counterpoint to the wide wordmark */
+  --tracking-label:  .10em;   /* the one place we echo the wordmark */
+  --measure:65ch;
+
+  --s-1:8px;  --s-2:16px; --s-3:24px;  --s-4:32px;
+  --s-6:48px; --s-8:64px; --s-12:96px; --s-16:128px;
+
+  --r-sm:3px; --r-md:6px;  /* the mark is angular — keep radii small */
+  --shadow:0 1px 2px rgba(20,37,35,.06), 0 12px 32px -20px rgba(20,37,35,.4);
+}
