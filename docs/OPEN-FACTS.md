@@ -30,7 +30,39 @@ Until these arrive, `src/assets/logo-placeholder.svg` is a clearly-marked
 placeholder built from the description in CLAUDE.md (gear containing a
 rising sun, halved by a horizon line, single flat `--c-sage` fill).
 
-## Content TODOs
+## Content TODOs (Step 3)
 
-Populated as pages are written — see the `<!-- TODO(daniel): ... -->` comments
-in each page's source for the exact in-context location.
+Every `leistungen`/`orte`/`ratgeber` entry and every hand-written page carries
+its own `<!-- TODO(daniel): ... -->` / `{/* TODO(daniel): ... */}` marker at
+the top plus inline `[TODO(daniel): ...]` placeholders where a specific fact
+is missing. Grouped summary:
+
+- **Brand/manufacturer mentions** — I only ever wrote the five names CLAUDE.md
+  confirms (Sungrow, Deye, myenergi, Loxone, K2 Systems), each still flagged
+  `[TODO(daniel): aktuelle Markenpartner bestätigen]` since the pairing of
+  manufacturer→service (e.g. "Sungrow for inverters") is my inference, not a
+  confirmed fact. `src/content/leistungen/photovoltaikanlage.md`,
+  `stromspeicher.md`, `wallboxen.md`, `smart-home.md`.
+- **Pricing** — every service page ends with `[Preis auf Anfrage]`; nothing
+  numeric was invented anywhere (packages/tiers I'd seen on the live site in
+  an earlier, pre-CLAUDE.md pass were deliberately dropped, since CLAUDE.md
+  itself lists "all prices" as unverified).
+- **Förderung (funding) specifics** — every mention of a concrete program,
+  KfW number, or funding rate is a `[TODO(daniel): ...]` placeholder across
+  `waermepumpe.md`, `wallboxen.md`, and 3 Ratgeber drafts
+  (`foerderung-niedersachsen`, `wallbox-foerderung`).
+- **Local references per city** — `src/content/orte/*.md` each end with a
+  TODO to add real reference projects once `/referenzen/` has data.
+- **Legal pages** (`impressum.astro`, `datenschutz.astro`, `agb.astro`) —
+  structural placeholders only; explicitly marked as needing a lawyer's
+  review, not just a fact-fill. Impressum is missing Rechtsform,
+  Handelsregisternummer, USt-IdNr., and Handwerkskammer.
+- **Jobs** (`jobs.astro`) — no real open positions listed yet.
+- **Über uns** (`ueber-uns.astro`) — kept to only the facts CLAUDE.md
+  verifies (founder, founding dates, service area); deliberately does not
+  state a team size, since that was only ever seen on the old live site and
+  isn't corroborated by CLAUDE.md.
+- **Contact form email delivery** — `functions/api/kontakt.ts` needs a
+  `RESEND_API_KEY` (or an equivalent swap) set as a Cloudflare Pages
+  environment variable before it can actually deliver mail; see
+  `docs/HANDOVER.md`.

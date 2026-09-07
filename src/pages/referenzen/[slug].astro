@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FigureStat from '../../components/FigureStat.astro';
+
+// Empty until real project data arrives — see /referenzen/ and docs/OPEN-FACTS.md.
+export async function getStaticPaths() {
+  const projects = await getCollection('referenzen');
+  return projects.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: '/' },
+      { label: 'Referenzen', href: '/referenzen/' },
+      { label: entry.data.h1, href: `/referenzen/${entry.id}/` },
+    ]}
+  />
+
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">{entry.data.h1}</h1>
+
+    <div class="mt-6 flex flex-wrap gap-8">
+      <FigureStat value={String(entry.data.kwp)} unit="kWp" label="Anlagenleistung" />
+      <FigureStat value={entry.data.orientation} label="Dachausrichtung" />
+      {entry.data.storageKwh && <FigureStat value={String(entry.data.storageKwh)} unit="kWh" label="Speichergröße" />}
+      {entry.data.annualYieldKwh && <FigureStat value={String(entry.data.annualYieldKwh)} unit="kWh/Jahr" label="Jahresertrag" />}
+    </div>
+
+    <div class="md-content mt-8">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

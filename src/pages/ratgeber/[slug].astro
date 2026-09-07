@@ -1,0 +1,57 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Button from '../../components/Button.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('ratgeber');
+  return posts.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const relatedService = await getEntry('leistungen', entry.data.relatedService);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description} noindex={entry.data.draft}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: '/' },
+      { label: 'Ratgeber', href: '/ratgeber/' },
+      { label: entry.data.h1, href: `/ratgeber/${entry.id}/` },
+    ]}
+  />
+
+  {entry.data.draft && (
+    <div class="mx-auto max-w-3xl px-4 pt-6 sm:px-6">
+      <p class="rounded-[var(--radius-md)] border border-warn bg-warn/10 px-4 py-3 text-sm font-medium text-warn">
+        Entwurf — noch nicht veröffentlicht (noindex).
+      </p>
+    </div>
+  )}
+
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <time class="text-xs font-medium uppercase tracking-[var(--tracking-label)] text-zinc" datetime={entry.data.publishDate.toISOString()}>
+      {entry.data.publishDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </time>
+    <h1 class="mt-3 text-3xl font-semibold text-ink">{entry.data.h1}</h1>
+    <div class="md-content mt-8">
+      <Content />
+    </div>
+  </article>
+
+  {relatedService && (
+    <div class="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
+      <div class="rounded-[var(--radius-md)] border border-line bg-mist/60 p-6 sm:p-8">
+        <p class="text-sm font-semibold uppercase tracking-[var(--tracking-label)] text-zinc">Passende Leistung</p>
+        <h2 class="mt-2 font-display text-xl font-semibold text-ink">{relatedService.data.h1}</h2>
+        <p class="mt-2 text-sm text-ink-2">{relatedService.data.summary}</p>
+        <Button href={`/${relatedService.id}/`} class="mt-4">Mehr erfahren</Button>
+      </div>
+    </div>
+  )}
+</BaseLayout>

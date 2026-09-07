@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedServices from '../components/RelatedServices.astro';
+import { business } from '../lib/business';
+---
+
+<!-- TODO(daniel): verify facts before publishing; add real open positions -->
+<BaseLayout
+  title="Jobs bei SolVita: Photovoltaik-Fachbetrieb"
+  description="Karriere bei SolVita: Werden Sie Teil eines wachsenden Teams für Photovoltaik und Gebäudetechnik in Niedersachsen — Initiativbewerbungen willkommen."
+>
+  <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Jobs', href: '/jobs/' }]} />
+
+  <section class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Jobs bei SolVita</h1>
+    <p class="mt-4 text-lg text-ink-2">
+      Wir wachsen — und suchen Menschen, die die Energiewende in Niedersachsen mit uns voranbringen wollen.
+    </p>
+
+    <div class="mt-8 rounded-[var(--radius-md)] border border-line bg-paper p-6">
+      <p class="text-ink-2">[TODO(daniel): aktuelle offene Stellen mit Titel, Beschreibung und Anforderungen ergänzen]</p>
+    </div>
+
+    <div class="mt-8 rounded-[var(--radius-md)] bg-mist/60 p-6">
+      <h2 class="font-display text-xl font-semibold text-ink">Aktuell keine passende Stelle dabei?</h2>
+      <p class="mt-2 text-ink-2">
+        Initiativbewerbungen sind bei uns jederzeit willkommen — schreiben Sie uns einfach an{' '}
+        <a href={`mailto:${business.email}`} class="font-medium text-petrol hover:underline">{business.email}</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+    <RelatedServices heading="Womit wir uns beschäftigen" count={3} />
+  </section>
+</BaseLayout>

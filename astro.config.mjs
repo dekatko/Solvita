@@ -1,4 +1,7 @@
 // @ts-check
+import { readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -6,6 +9,15 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 import mdx from '@astrojs/mdx';
+
+// Ratgeber entries marked draft: true must not appear in the sitemap
+// (CLAUDE.md's kickoff spec) — computed here via plain fs since
+// astro.config.mjs runs before the content layer is available.
+const ratgeberDir = fileURLToPath(new URL('./src/content/ratgeber/', import.meta.url));
+const draftRatgeberSlugs = readdirSync(ratgeberDir)
+  .filter((file) => file.endsWith('.md') || file.endsWith('.mdx'))
+  .filter((file) => /^draft:\s*true/m.test(readFileSync(join(ratgeberDir, file), 'utf-8')))
+  .map((file) => file.replace(/\.(md|mdx)$/, ''));
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,5 +27,10 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap(), mdx()]
+  integrations: [
+    sitemap({
+      filter: (page) => !draftRatgeberSlugs.some((slug) => page.includes(`/ratgeber/${slug}/`)),
+    }),
+    mdx(),
+  ]
 });

@@ -1,15 +1,97 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HorizonSplit from '../components/HorizonSplit.astro';
+import Button from '../components/Button.astro';
+import FigureStat from '../components/FigureStat.astro';
+import Faq from '../components/Faq.astro';
+import { getCollection } from 'astro:content';
+import { faqItems } from '../lib/faq';
+import { business } from '../lib/business';
 
-// Placeholder body — real homepage content lands in Step 3.
+const services = await getCollection('leistungen');
+const faqTeaser = faqItems.slice(0, 4);
 ---
 
+<!-- TODO(daniel): verify facts before publishing -->
 <BaseLayout
   title="Photovoltaik in Wolfsburg & Umgebung | SolVita"
   description="Solaranlagen, Speicher und Wallboxen vom Elektrofachbetrieb aus Wolfsburg. Planung, Montage und Service aus einer Hand — kostenlose Dachprüfung."
 >
-  <div class="mx-auto max-w-6xl px-4 py-24 text-center sm:px-6">
-    <h1 class="font-display text-4xl font-semibold text-ink">Step 2 in progress</h1>
-    <p class="mt-3 text-ink-2">Homepage content lands in Step 3 — this page exists to render the header and footer.</p>
-  </div>
+  <HorizonSplit aBackground="ink" bBackground="paper">
+    <Fragment slot="a">
+      <p class="text-sm font-medium uppercase tracking-[var(--tracking-label)] text-sage">Photovoltaik aus Wolfsburg</p>
+      <h1 class="mt-4 text-4xl font-semibold leading-[var(--lh-tight)] text-paper">
+        Niedersachsen wird solar — wir machen Ihr Zuhause energieautark
+      </h1>
+      <p class="mt-5 text-lg text-mist">
+        Wir planen, liefern und installieren Photovoltaikanlagen, Stromspeicher, Wallboxen und Gebäudetechnik für Privathaushalte, Unternehmen, Landwirte und Kommunen in Wolfsburg, Gifhorn, Braunschweig und Helmstedt.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href="/kontakt/" variant="onDark">Kostenlose Beratung anfragen</Button>
+        <Button href="/photovoltaikanlage/" variant="onDark">Leistungen entdecken</Button>
+      </div>
+    </Fragment>
+    <Fragment slot="b">
+      <div class="grid grid-cols-2 gap-6">
+        <FigureStat value="5–30" unit="kWp" label="Anlagengröße für Einfamilienhaus, Betrieb und Landwirtschaft" />
+        <FigureStat value={String(business.foundedCompany)} label="Gründung als Unternehmen" />
+        <FigureStat value="4" label="Regionen: Wolfsburg, Gifhorn, Braunschweig, Helmstedt" />
+        <FigureStat value="1" label="Ansprechpartner von der Beratung bis zur Inbetriebnahme" />
+      </div>
+    </Fragment>
+  </HorizonSplit>
+
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <h2 class="text-2xl font-semibold text-ink">Unsere Leistungen</h2>
+    <p class="mt-3 max-w-2xl text-ink-2">
+      Alles rund um Solarstrom und Gebäudetechnik — geplant und installiert von einem Team aus einer Hand.
+    </p>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => (
+        <a
+          href={`/${service.id}/`}
+          class="flex flex-col rounded-[var(--radius-md)] border border-line bg-paper p-6 shadow-[var(--shadow)] transition-shadow hover:shadow-[0_1px_2px_rgba(20,37,35,.06),_0_16px_40px_-20px_rgba(20,37,35,.5)]"
+        >
+          <h3 class="text-lg font-semibold text-ink">{service.data.h1}</h3>
+          <p class="mt-2 text-sm text-zinc">{service.data.summary}</p>
+          <span class="mt-4 text-sm font-semibold text-petrol">Mehr erfahren →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-mist/50 py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold text-ink">Vor Ort in Ihrer Region</h2>
+      <p class="mt-3 max-w-2xl text-ink-2">
+        Mit Sitz in {business.city} sind wir in ganz Niedersachsen unterwegs — mit besonderem Fokus auf diese Regionen.
+      </p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <a href="/photovoltaik-wolfsburg/" class="rounded-[var(--radius-md)] bg-paper px-5 py-4 font-semibold text-ink shadow-[var(--shadow)] hover:text-petrol">Wolfsburg</a>
+        <a href="/photovoltaik-gifhorn/" class="rounded-[var(--radius-md)] bg-paper px-5 py-4 font-semibold text-ink shadow-[var(--shadow)] hover:text-petrol">Gifhorn</a>
+        <a href="/photovoltaik-braunschweig/" class="rounded-[var(--radius-md)] bg-paper px-5 py-4 font-semibold text-ink shadow-[var(--shadow)] hover:text-petrol">Braunschweig</a>
+        <a href="/photovoltaik-helmstedt/" class="rounded-[var(--radius-md)] bg-paper px-5 py-4 font-semibold text-ink shadow-[var(--shadow)] hover:text-petrol">Helmstedt</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-2xl font-semibold text-ink">Häufige Fragen</h2>
+      <a href="/faq/" class="text-sm font-semibold text-petrol hover:underline">Alle Fragen ansehen →</a>
+    </div>
+    <div class="mt-8">
+      <Faq items={faqTeaser} />
+    </div>
+  </section>
+
+  <section class="pb-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="rounded-[var(--radius-md)] bg-petrol px-6 py-10 text-center text-paper sm:px-10">
+        <h2 class="font-display text-2xl font-semibold text-paper">Bereit für Ihre eigene Solaranlage?</h2>
+        <p class="mt-2 text-paper/90">Lassen Sie uns unverbindlich über Ihr Dach, Ihren Verbrauch und die passende Anlagengröße sprechen.</p>
+        <Button href="/kontakt/" variant="onDark" class="mt-5">Kostenlose Beratung anfragen</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

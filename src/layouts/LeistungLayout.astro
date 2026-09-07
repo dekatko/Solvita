@@ -1,0 +1,49 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedServices from '../components/RelatedServices.astro';
+import Button from '../components/Button.astro';
+import { serviceSchema } from '../lib/schema';
+import { siteUrl } from '../lib/business';
+
+interface Props {
+  entry: CollectionEntry<'leistungen'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const url = `${siteUrl}/${entry.id}/`;
+const schema = serviceSchema({ name: entry.data.h1, description: entry.data.summary, url });
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: '/' },
+      { label: entry.data.h1, href: `/${entry.id}/` },
+    ]}
+  />
+
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">{entry.data.h1}</h1>
+    <p class="mt-4 text-lg text-ink-2">{entry.data.summary}</p>
+    <div class="md-content mt-8">
+      <Content />
+    </div>
+  </article>
+
+  <div class="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
+    <RelatedServices exclude={entry.id} />
+  </div>
+
+  <div class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+    <div class="rounded-[var(--radius-md)] bg-petrol px-6 py-10 text-center text-paper sm:px-10">
+      <h2 class="font-display text-2xl font-semibold text-paper">Fragen zu {entry.data.h1}?</h2>
+      <p class="mt-2 text-paper/90">Wir beraten Sie kostenlos und unverbindlich.</p>
+      <Button href="/kontakt/" variant="onDark" class="mt-5">Kontakt aufnehmen</Button>
+    </div>
+  </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+</BaseLayout>

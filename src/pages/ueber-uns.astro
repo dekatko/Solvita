@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedServices from '../components/RelatedServices.astro';
+import { business } from '../lib/business';
+
+const manufacturers = business.manufacturers;
+---
+
+<!-- TODO(daniel): verify facts before publishing -->
+<BaseLayout
+  title="Über SolVita: Photovoltaik in Wolfsburg"
+  description="SolVita aus Wolfsburg: junges, familiäres Team für Photovoltaik, Speicher, Wallboxen und Gebäudetechnik in Niedersachsen — persönlich und unabhängig."
+>
+  <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Über uns', href: '/ueber-uns/' }]} />
+
+  <section class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Über SolVita</h1>
+    <p class="mt-4 text-lg text-ink-2">
+      SolVita ist ein Elektrofachbetrieb für Photovoltaik und Gebäudetechnik mit Sitz in {business.city}.
+    </p>
+
+    <div class="md-content mt-8">
+      <p>
+        Gegründet wurde SolVita {business.foundedCompany} von {business.legalContact}, einem {business.legalContactTitle}, der bereits seit {business.foundedIndependent} selbstständig tätig war. Aus dieser Erfahrung entstand ein Betrieb, der Photovoltaik, Elektroinstallation, Wärmepumpen, Wallboxen und Smart-Home-Lösungen unter einem Dach anbietet.
+      </p>
+
+      <h2>Unser Einsatzgebiet</h2>
+      <p>
+        Von {business.city} aus sind wir vor allem in {business.areasServed.join(', ')} unterwegs — für Privathaushalte, Unternehmen, Landwirte und Kommunen.
+      </p>
+
+      <h2>Marken, mit denen wir arbeiten</h2>
+      <p>
+        Je nach Projekt setzen wir auf Komponenten anerkannter Hersteller, unter anderem {manufacturers.join(', ')}.
+      </p>
+      <p class="text-sm text-zinc">
+        [TODO(daniel): aktuelle Markenpartner und ggf. Zertifizierungen bestätigen]
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+    <RelatedServices heading="Unsere Leistungen" count={3} />
+  </section>
+</BaseLayout>

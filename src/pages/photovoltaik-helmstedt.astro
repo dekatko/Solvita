@@ -1,0 +1,9 @@
+---
+import { getEntry } from 'astro:content';
+import OrtLayout from '../layouts/OrtLayout.astro';
+
+const entry = await getEntry('orte', 'helmstedt');
+if (!entry) throw new Error('Missing orte entry: helmstedt');
+---
+
+<OrtLayout entry={entry} routeSlug="photovoltaik-helmstedt" />

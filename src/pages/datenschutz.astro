@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business } from '../lib/business';
+---
+
+<!-- TODO(daniel): full legal review needed before publishing — this is a structural placeholder, not a compliant policy -->
+<BaseLayout
+  title="Datenschutzerklärung"
+  description="Datenschutzerklärung von SolVita: welche Daten auf dieser Website verarbeitet werden, zu welchem Zweck und welche Rechte Ihnen als Nutzer zustehen."
+>
+  <section class="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Datenschutzerklärung</h1>
+
+    <div class="md-content mt-8">
+      <p>
+        [TODO(daniel): vollständige Datenschutzerklärung vor Veröffentlichung durch einen Fachanwalt bzw. Datenschutzbeauftragten prüfen und ergänzen lassen — dieser Text ist ein struktureller Platzhalter und ersetzt keine rechtssichere Erklärung.]
+      </p>
+
+      <h2>Verantwortlicher</h2>
+      <p>SolVita</p>
+      <p>{business.street}, {business.postalCode} {business.city}</p>
+      <p>Telefon: {business.phoneDisplay}</p>
+      <p>E-Mail: {business.email}</p>
+
+      <h2>Datenschutzbeauftragte(r)</h2>
+      <p>[TODO(daniel): Datenschutzbeauftragte/n benennen, falls gesetzlich erforderlich]</p>
+
+      <h2>Kontaktformular</h2>
+      <p>
+        Wenn Sie uns über das Kontaktformular eine Anfrage senden, verarbeiten wir die dort angegebenen Daten zur Bearbeitung Ihrer Anfrage. Es werden keine Daten dauerhaft gespeichert; die Nachricht wird per E-Mail weitergeleitet. [TODO(daniel): eingesetzten E-Mail-Dienstleister und Speicherdauer der Server-Logs ergänzen]
+      </p>
+
+      <h2>Hosting</h2>
+      <p>[TODO(daniel): Hosting-Anbieter (Cloudflare Pages) und Serverstandort in der Datenschutzerklärung dokumentieren]</p>
+
+      <h2>Analyse-Tools</h2>
+      <p>Diese Website verwendet kein Tracking durch Dritte. [TODO(daniel): bestätigen, sobald Analytics final entschieden ist]</p>
+    </div>
+  </section>
+</BaseLayout>

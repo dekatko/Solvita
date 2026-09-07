@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ContactForm from '../components/ContactForm.astro';
+import MapOnClick from '../components/MapOnClick.astro';
+import RelatedServices from '../components/RelatedServices.astro';
+import { business } from '../lib/business';
+---
+
+<BaseLayout
+  title="Kontakt: Kostenlose Beratung anfragen"
+  description="Kontaktieren Sie SolVita in Wolfsburg für eine kostenlose Beratung zu Photovoltaik, Speicher, Wallbox und Gebäudetechnik — telefonisch oder per Formular."
+>
+  <Breadcrumbs items={[{ label: 'Start', href: '/' }, { label: 'Kontakt', href: '/kontakt/' }]} />
+
+  <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Kontakt</h1>
+    <p class="mt-4 max-w-2xl text-lg text-ink-2">
+      Erzählen Sie uns von Ihrem Vorhaben — wir melden uns zeitnah mit einem unverbindlichen Beratungstermin.
+    </p>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-2">
+      <div class="space-y-6">
+        <div class="rounded-[var(--radius-md)] border border-line bg-paper p-5">
+          <p class="font-semibold text-ink">Adresse</p>
+          <p class="mt-1 text-ink-2">{business.street}, {business.postalCode} {business.city}</p>
+        </div>
+        <div class="rounded-[var(--radius-md)] border border-line bg-paper p-5">
+          <p class="font-semibold text-ink">Telefon</p>
+          <a href={business.phoneHref} class="mt-1 block text-ink-2 hover:text-petrol">{business.phoneDisplay}</a>
+        </div>
+        <div class="rounded-[var(--radius-md)] border border-line bg-paper p-5">
+          <p class="font-semibold text-ink">E-Mail</p>
+          <a href={`mailto:${business.email}`} class="mt-1 block text-ink-2 hover:text-petrol">{business.email}</a>
+        </div>
+        <div class="rounded-[var(--radius-md)] border border-line bg-paper p-5">
+          <p class="font-semibold text-ink">WhatsApp</p>
+          <a href={business.whatsapp} class="mt-1 block text-ink-2 hover:text-petrol" rel="nofollow">Nachricht schreiben</a>
+        </div>
+        <div class="rounded-[var(--radius-md)] border border-line bg-paper p-5">
+          <p class="font-semibold text-ink">Öffnungszeiten</p>
+          <ul class="mt-2 space-y-1 text-ink-2">
+            {business.hours.map((slot) => (
+              <li class="flex justify-between gap-4">
+                <span>{slot.days}</span>
+                <span class="font-mono">{slot.time}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <MapOnClick />
+      </div>
+
+      <ContactForm />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+    <RelatedServices heading="Unsere Leistungen" count={3} />
+  </section>
+</BaseLayout>

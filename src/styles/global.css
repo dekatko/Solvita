@@ -53,19 +53,78 @@
   --radius-md: var(--r-md);
 }
 
-html {
-  hyphens: auto;
+/*
+  These live in @layer base (which Tailwind's own @import declares)
+  rather than as unlayered rules. CSS Cascade Layers give ANY unlayered
+  rule priority over ALL layered rules regardless of specificity or
+  source order — so an unlayered `h1 { color: ... }` here would beat a
+  Tailwind utility like `text-paper` on a specific h1 every time. That
+  was a real bug (an invisible hero heading) before this was fixed.
+*/
+@layer base {
+  html {
+    hyphens: auto;
+  }
+
+  body {
+    font-family: var(--f-body);
+    color: var(--c-ink-2);
+    background-color: var(--c-paper);
+    line-height: var(--lh-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--f-display);
+    color: var(--c-ink);
+    line-height: var(--lh-tight);
+  }
 }
 
-body {
-  font-family: var(--f-body);
-  color: var(--c-ink-2);
-  background-color: var(--c-paper);
-  line-height: var(--lh-body);
-}
+/* Rendered Markdown/MDX body copy (leistungen/orte/ratgeber collections) */
+@layer components {
+  .md-content {
+    max-width: var(--measure);
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--f-display);
-  color: var(--c-ink);
-  line-height: var(--lh-tight);
+  .md-content > * + * {
+    margin-top: 1.1em;
+  }
+
+  .md-content h2 {
+    font-size: var(--t-2xl);
+    font-weight: 600;
+    margin-top: 1.8em;
+  }
+
+  .md-content h3 {
+    font-size: var(--t-xl);
+    font-weight: 600;
+    margin-top: 1.5em;
+  }
+
+  .md-content p,
+  .md-content li {
+    line-height: var(--lh-body);
+  }
+
+  .md-content ul {
+    list-style: disc;
+    padding-left: 1.25em;
+  }
+
+  .md-content ol {
+    list-style: decimal;
+    padding-left: 1.25em;
+  }
+
+  .md-content a {
+    color: var(--c-petrol);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .md-content strong {
+    color: var(--c-ink);
+  }
 }

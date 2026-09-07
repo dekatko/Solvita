@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business } from '../lib/business';
+---
+
+<!-- TODO(daniel): verify facts before publishing — legal form, Handelsregister, USt-IdNr. missing -->
+<BaseLayout
+  title="Impressum"
+  description="Impressum von SolVita gemäß Paragraf 5 Telemediengesetz — Anbieterkennzeichnung, Kontaktangaben und rechtliche Hinweise zu dieser Website im Überblick."
+>
+  <section class="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+    <h1 class="text-3xl font-semibold text-ink">Impressum</h1>
+
+    <div class="md-content mt-8">
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <p>SolVita</p>
+      <p>{business.legalContact}, {business.legalContactTitle}</p>
+      <p>{business.street}</p>
+      <p>{business.postalCode} {business.city}</p>
+      <p>[TODO(daniel): Rechtsform ergänzen — z. B. Einzelunternehmen, GmbH]</p>
+
+      <h2>Kontakt</h2>
+      <p>Telefon: {business.phoneDisplay}</p>
+      <p>E-Mail: {business.email}</p>
+
+      <h2>Registereintrag</h2>
+      <p>[TODO(daniel): Handelsregisternummer ergänzen, falls zutreffend]</p>
+      <p>[TODO(daniel): USt-IdNr. ergänzen]</p>
+
+      <h2>Zuständige Handwerkskammer</h2>
+      <p>[TODO(daniel): zuständige Handwerkskammer und Eintragung ergänzen]</p>
+
+      <h2>Verbraucherstreitbeilegung</h2>
+      <p>
+        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
