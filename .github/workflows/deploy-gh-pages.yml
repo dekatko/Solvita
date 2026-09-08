@@ -38,7 +38,16 @@ jobs:
           node-version: 22
           cache: npm
 
-      - run: npm ci
+      # Not `npm ci`: this lockfile was generated on Windows, and sharp
+      # (pulled in transitively by Astro's image pipeline, unused here
+      # but still present) ships one optional package per OS/arch. Its
+      # wasm32 fallback's own sub-dependency (@emnapi/runtime) never
+      # gets fully resolved on a platform that uses a native sharp
+      # binary instead, which is fine for `npm install` but fails
+      # `npm ci`'s stricter lockfile-consistency check on a different
+      # OS than the one that generated it. `npm install` re-resolves
+      # correctly for whichever platform is actually running it.
+      - run: npm install
 
       - name: Build (GitHub Pages base path)
         run: npm run build
