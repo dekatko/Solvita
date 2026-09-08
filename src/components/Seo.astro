@@ -9,7 +9,10 @@ export interface Props {
   noindex?: boolean;
 }
 
-const { title, description, image = '/og-default.svg', noindex = false } = Astro.props;
+// No leading slash on the default: resolved relative to Astro.site (which
+// always ends in "/"), not to the origin root, so it stays correct when
+// site includes a subpath (e.g. the GitHub Pages build, see astro.config.mjs).
+const { title, description, image = 'og-default.svg', noindex = false } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);

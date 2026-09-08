@@ -1,0 +1,60 @@
+name: Deploy client-preview to GitHub Pages
+
+# Secondary deploy target for showing the client a live preview.
+# The real, eventual production host is Cloudflare Pages (see
+# docs/HANDOVER.md) — this workflow exists so a preview URL is available
+# without touching that. Manually triggerable any time from the Actions
+# tab; also runs on pushes to relaunch/main so the preview stays current
+# while relaunch is still under review. Prune the branch list (or this
+# whole workflow) once you no longer need the GitHub Pages copy.
+#
+# Note: the contact form will not work on this deployment. It posts to
+# a Cloudflare Pages Function (functions/api/kontakt.ts), and GitHub
+# Pages only serves static files — no server-side functions. Submitting
+# it here shows the form's own "that didn't work" message, not a crash.
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [relaunch, main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (GitHub Pages base path)
+        run: npm run build
+        env:
+          GITHUB_PAGES: 'true'
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

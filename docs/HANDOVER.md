@@ -78,6 +78,32 @@ prices (all `[Preis auf Anfrage]`), and per-page content TODOs.
    at `/leistungen/drohnenaufnahmen/`, which doesn't exist on the new site
    (flagged in `public/_redirects` and here).
 
+### Secondary target: GitHub Pages (client preview)
+
+Added specifically so a live link could be shared before Cloudflare Pages
+is set up. `.github/workflows/deploy-gh-pages.yml` builds and deploys on
+every push to `relaunch`/`main`, or on demand from the Actions tab. First
+time only: repo Settings → Pages → Source → "GitHub Actions" (not "Deploy
+from a branch"). The resulting URL is `https://dekatko.github.io/Solvita/`.
+
+This required real changes, not just a workflow file, because GitHub Pages
+project sites serve from a subpath instead of the domain root that
+everything else here assumes:
+- `astro.config.mjs` sets `base`/`site` conditionally on a `GITHUB_PAGES`
+  env var, and rewrites the built HTML's internal links to match after
+  the static build finishes (`githubPagesBaseRewrite()` — see its comment
+  for why a post-build rewrite, not per-component fixes).
+- Fonts (`src/styles/fonts.css`) switched from absolute (`/fonts/...`) to
+  relative (`../fonts/...`) paths, which resolve correctly under any base
+  with no toggle needed.
+- The default OG image path in `Seo.astro` dropped its leading slash so
+  it resolves relative to `Astro.site` (which includes the subpath)
+  instead of the domain root.
+
+**Known gap on this deployment**: the contact form can't send mail (no
+server-side functions on GitHub Pages — see the README's Deploy targets
+section). Worth mentioning to the client if they try it.
+
 ## Post-launch checklist (from CLAUDE.md, annotated)
 
 ### Before cutover
