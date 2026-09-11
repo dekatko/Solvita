@@ -5,13 +5,16 @@ h1: "Wallbox installieren"
 summary: "Wallbox-Installation mit Überschussladen aus der eigenen PV-Anlage — Anmeldung und Abnahme inklusive."
 manufacturers: ["myenergi"]
 ---
-<!-- TODO(daniel): verify facts, pricing, brand names before publishing -->
+<!-- Sourced from the live site's current Wallbox page
+     (energy-solvita.de/wallboxen/) — restructured, not rewritten from
+     scratch. TODO(daniel): confirm before publishing that this still
+     matches what's actually offered. -->
 
-Mit einer Wallbox laden Sie Ihr Elektrofahrzeug bevorzugt mit selbst erzeugtem Solarstrom, statt teuren Netzstrom zu beziehen. Unsere Lösungen sind mit gängigen Elektrofahrzeugmodellen und dem Typ-2-Ladestandard kompatibel.
+Der größte Vorteil einer Wallbox, besonders in Kombination mit Ihrer eigenen Photovoltaikanlage, ist das intelligente Laden: Ihr Elektrofahrzeug lädt bevorzugt dann, wenn Ihr Dach den meisten Strom produziert — statt teuren Netzstrom zu beziehen. Unsere Lösungen sind mit allen gängigen Elektrofahrzeugmodellen und dem Typ-2-Ladestandard kompatibel.
 
 ## Überschussladen
 
-In Kombination mit einer [Photovoltaikanlage](/photovoltaikanlage/) und optional einem [Stromspeicher](/stromspeicher/) lädt eine intelligent gesteuerte Wallbox Ihr Fahrzeug bevorzugt dann, wenn ausreichend Solarstrom zur Verfügung steht.
+In Kombination mit einer [Photovoltaikanlage](/photovoltaikanlage/) und optional einem [Stromspeicher](/stromspeicher/) optimiert eine intelligent gesteuerte Wallbox den Ladevorgang so, dass Ihr Fahrzeug bevorzugt mit selbst erzeugtem Solarstrom geladen wird — für einen höheren Eigenverbrauch.
 
 ## Ablauf
 

@@ -5,7 +5,9 @@ h1: "Stromspeicher: Lohnt sich der Batteriespeicher?"
 summary: "Speichergrößen von 6 bis 20 kWh — mehr Eigenverbrauch und Unabhängigkeit vom öffentlichen Netz."
 manufacturers: ["Deye", "Sungrow"]
 ---
-<!-- TODO(daniel): verify facts, pricing, brand names before publishing -->
+<!-- No source page: energy-solvita.de/stromspeicher/ 404s on the live
+     site — this is a genuinely new page, per CLAUDE.md's routes table.
+     TODO(daniel): verify facts, pricing, brand names before publishing -->
 
 Ein Stromspeicher speichert den tagsüber von Ihrer Photovoltaikanlage erzeugten Überschuss, den Sie in dem Moment nicht verbrauchen, und stellt ihn abends und nachts wieder zur Verfügung. Je nach Verbrauchsprofil und Anlagengröße planen wir Speicher von 6 bis 20 kWh Kapazität.
 

@@ -5,7 +5,13 @@ h1: "Photovoltaikanlage: Planung & Montage"
 summary: "PV-Anlagen von 5 bis 30 kWp für Einfamilienhaus, Betrieb und Landwirtschaft — von der Dachanalyse bis zur Inbetriebnahme."
 manufacturers: ["Sungrow", "Deye", "K2 Systems"]
 ---
-<!-- TODO(daniel): verify facts, pricing, brand names before publishing -->
+<!-- Package tiers below are sourced from the live site's current PV page
+     (energy-solvita.de/photovoltaikanlage/) — real module counts, kWp and
+     storage sizes, not invented. TODO(daniel): the old site names Huawei-
+     and EcoFlow-branded inverters/storage per tier, which conflicts with
+     the manufacturer list locked in CLAUDE.md (Sungrow, Deye, myenergi,
+     Loxone, K2 Systems) — confirm which is current before publishing, and
+     update either this page or CLAUDE.md's business-facts table to match. -->
 
 Eine Photovoltaikanlage wandelt Sonnenlicht über Solarmodule direkt in elektrischen Strom um. Ein Wechselrichter macht daraus nutzbaren Haushaltsstrom — für den direkten Verbrauch, zur Speicherung oder zur Einspeisung ins öffentliche Netz. Wir planen und montieren Anlagen von 5 bis 30 kWp für Einfamilienhäuser, Betriebe und landwirtschaftliche Betriebe in Niedersachsen.
 
@@ -15,6 +21,17 @@ Eine Photovoltaikanlage wandelt Sonnenlicht über Solarmodule direkt in elektris
 2. **Planung** — Anlagengröße, Modultyp und Wechselrichter werden auf Ihr Gebäude und Ihre Ziele abgestimmt.
 3. **Montage** — Unser Team übernimmt Unterkonstruktion, Modulmontage und die elektrische Installation.
 4. **Inbetriebnahme** — Anmeldung beim Netzbetreiber, Aktivierung und Übergabe der Anlage.
+
+## Beispielhafte Anlagengrößen
+
+Vier Ausbaustufen, je nach Verbrauch und Autarkiegrad — [TODO(daniel): Wechselrichter- und Speichermarke je Stufe bestätigen, siehe Hinweis oben]:
+
+- **Basis** — 12 Module, 5,34 kWp, ohne Speicher
+- **Komfort** — 16 Module, 7,12 kWp, mit 6,14 kWh Speicher
+- **Effizient** — 24 Module, 10,8 kWp, mit 10 kWh Speicher (15 Jahre Herstellergarantie)
+- **Voll-Autark** — 32 Module, 14,4 kWp, mit 10 kWh Speicher (15 Jahre Herstellergarantie)
+
+Optional bei jeder Stufe: Leistungsoptimierer und Notstromversorgung. Inklusive: Solar-App, Montage und Inbetriebnahme.
 
 ## Baugenehmigung und Aufwand
 
