@@ -1,0 +1,108 @@
+---
+// Compact lead capture: name + phone + consent, no email/message required.
+// Same endpoint and spam defenses as ContactForm.astro — honeypot + timestamp
+// trap, checked server-side in functions/api/kontakt.ts, which accepts
+// phone-only (no email) submissions from this form.
+interface Props {
+  service: string;
+  heading?: string;
+  intro?: string;
+}
+
+const {
+  service,
+  heading = `Interesse an ${service}?`,
+  intro = 'Hinterlassen Sie Ihre Kontaktdaten — wir melden uns zeitnah mit einer kostenlosen Beratung.',
+} = Astro.props;
+
+const slug = service.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const formId = `quick-lead-${slug}`;
+---
+
+<div class="rounded-[var(--radius-md)] border border-line bg-paper p-6 shadow-[var(--shadow)] sm:p-8">
+  <h2 class="font-display text-xl font-semibold text-ink">{heading}</h2>
+  <p class="mt-2 text-ink-2">{intro}</p>
+
+  <form id={formId} method="post" action="/api/kontakt" class="mt-6 space-y-4">
+    <div class="hidden" aria-hidden="true">
+      <label for={`${formId}-firma`}>Firma (bitte freilassen)</label>
+      <input type="text" id={`${formId}-firma`} name="firma" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="hidden" name="loadedAt" class="js-loaded-at" value="" />
+    <input type="hidden" name="service" value={service} />
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <label for={`${formId}-name`} class="text-sm font-medium text-ink-2">Name</label>
+        <input
+          id={`${formId}-name`} name="name" type="text" required autocomplete="name"
+          class="mt-1 w-full rounded-[var(--radius-sm)] border border-line px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
+        />
+      </div>
+      <div>
+        <label for={`${formId}-phone`} class="text-sm font-medium text-ink-2">Telefonnummer</label>
+        <input
+          id={`${formId}-phone`} name="phone" type="tel" required autocomplete="tel"
+          class="mt-1 w-full rounded-[var(--radius-sm)] border border-line px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
+        />
+      </div>
+    </div>
+
+    <label class="flex items-start gap-2 text-sm text-ink-2">
+      <input
+        type="checkbox" name="consent" required
+        class="mt-0.5 h-4 w-4 rounded-[var(--radius-sm)] border-line text-petrol focus:ring-petrol"
+      />
+      <span>
+        Ich bin einverstanden, dass SolVita meine Daten zur Kontaktaufnahme elektronisch verarbeitet. Diese
+        Einwilligung kann jederzeit für die Zukunft widerrufen werden.
+        (<a href="/datenschutz/" class="text-petrol underline hover:text-petrol-dk">Datenschutzerklärung</a>)
+      </span>
+    </label>
+
+    <button
+      type="submit"
+      class="w-full rounded-[var(--radius-md)] bg-petrol px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-petrol-dk"
+    >
+      Anfrage senden
+    </button>
+
+    <p class="js-status text-sm" role="status" aria-live="polite"></p>
+  </form>
+</div>
+
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>('form[id^="quick-lead-"]');
+
+  forms.forEach((form) => {
+    const loadedAt = form.querySelector<HTMLInputElement>('.js-loaded-at');
+    const status = form.querySelector<HTMLElement>('.js-status');
+    if (loadedAt) loadedAt.value = String(Date.now());
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!status) return;
+
+      status.textContent = 'Wird gesendet …';
+      status.className = 'js-status text-sm text-zinc';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (!response.ok) throw new Error('request failed');
+
+        status.textContent = 'Danke! Wir melden uns zeitnah bei Ihnen.';
+        status.className = 'js-status text-sm text-ok';
+        form.reset();
+        if (loadedAt) loadedAt.value = String(Date.now());
+      } catch {
+        status.textContent = 'Das hat leider nicht geklappt. Rufen Sie uns gerne direkt an.';
+        status.className = 'js-status text-sm text-crit';
+      }
+    });
+  });
+</script>

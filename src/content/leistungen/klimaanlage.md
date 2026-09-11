@@ -1,24 +1,45 @@
 ---
 title: "Klimaanlage installieren – Wolfsburg"
-description: "Klimaanlage vom Elektrofachbetrieb: Beratung, Installation und Wartung für Wohnräume und Gewerbe in Wolfsburg und Umgebung — energieeffizient umgesetzt."
+description: "Split-, Multisplit- und Kompaktanlagen für Wohnräume und Büros: Beratung, Montage und Wartung vom Elektrofachbetrieb in Wolfsburg, Gifhorn und Braunschweig."
 h1: "Klimaanlage installieren"
-summary: "Klimaanlagen für Wohnräume und Gewerbe — Beratung, Installation und Wartung aus einer Hand."
+summary: "Split-, Multisplit- und Kompaktanlagen für Wohnräume, Büros und Hotels — Beratung, Montage und Wartung aus einer Hand."
 ---
-<!-- TODO(daniel): verify facts, pricing, brand names before publishing -->
+<!-- Body content sourced from the live site's current Klimaanlage page
+     (energy-solvita.de/klimaanlage/) — restructured, not rewritten from
+     scratch, so the technical claims and process description are the
+     client's own copy, not a guess. TODO(daniel): confirm before publishing
+     that this still matches what's actually offered; pricing intentionally
+     stays a placeholder — the old page doesn't give one either. -->
 
-Ob einzelnes Wohnzimmer, Büro oder mehrere Räume: Wir beraten Sie zur passenden Klimaanlagenlösung und übernehmen Installation und Wartung.
+Ob einzelnes Zimmer, ganzes Haus oder Büro: Wir ermitteln den passenden Kühl- und Heizbedarf und übernehmen Planung, Montage und Wartung Ihrer Klimaanlage aus einer Hand.
 
-## Beratung
+## Beratung vor Ort
 
-Die passende Klimaanlage hängt von Raumgröße, Nutzung und baulichen Gegebenheiten ab. Wir prüfen das vor Ort und schlagen eine passende Lösung vor.
+Wir analysieren Ihre Räumlichkeiten und ermitteln den optimalen Kühl- bzw. Heizbedarf, um Ihnen die energieeffizienteste Lösung vorzuschlagen — inklusive Fragen zu Fördermöglichkeiten.
+
+## Anlagentypen im Vergleich
+
+**Split-Klimaanlage** — eine Außeneinheit, eine Inneneinheit, verbunden über Kältemittelleitungen. Energieeffizient und leise, da der Kompressor außen sitzt. Ideal für einzelne Räume wie Schlafzimmer, Wohnzimmer oder ein kleines Büro.
+
+**Multisplit-Klimaanlage** — eine Außeneinheit versorgt zwei bis fünf einzeln steuerbare Inneneinheiten. Ideal für mehrere Räume: ein ganzes Haus, mehrere Büros oder Hotelzimmer.
+
+**Kompaktgerät** — mobil oder fest installiert, alle Komponenten in einem Gehäuse, Abluftschlauch zum Fenster oder zur Wandöffnung nötig. Günstiger und flexibler, aber weniger effizient und lauter als ein Split-System. Ideal für temporäre oder kleine Räume und Mietwohnungen ohne bauliche Veränderungen.
+
+## Ablauf
+
+1. Beratung — Bedarfsanalyse vor Ort und Auswahl der passenden Anlage
+2. Lieferung — termingerechte Beschaffung der Komponenten
+3. Montage — fachgerechter und sauberer Einbau durch unser Team
+4. Service — Ansprechpartner bei Störungen
+5. Wartung — optionaler Wartungsvertrag für dauerhafte Effizienz [TODO(daniel): Wartungsintervalle und -konditionen ergänzen]
+
+## Warum eine Klimaanlage
+
+Moderne Split-Klimaanlagen kühlen im Sommer und heizen kosteneffizient im Winter. Darüber hinaus filtern sie Staub, Pollen und andere Schadstoffe aus der Raumluft und regulieren die Luftfeuchtigkeit — spürbar für Allergiker und in Räumen mit empfindlicher Technik, etwa Serverräumen oder Home-Offices.
 
 ## Kombination mit Photovoltaik
 
 Läuft Ihre Klimaanlage überwiegend tagsüber, lässt sich ein Teil des Stromverbrauchs mit einer eigenen [Photovoltaikanlage](/photovoltaikanlage/) decken.
-
-## Installation und Wartung
-
-Nach der Installation bieten wir optional Wartungsverträge an, damit Ihre Anlage dauerhaft effizient läuft. [TODO(daniel): Wartungsintervalle und -konditionen ergänzen]
 
 ## Kosten
 

@@ -30,16 +30,21 @@ function jsonResponse(body: Record<string, unknown>, status: number) {
   });
 }
 
-async function sendEmail(env: Env, fields: { name: string; email: string; phone: string; message: string }) {
+async function sendEmail(
+  env: Env,
+  fields: { name: string; email: string; phone: string; message: string; service: string },
+) {
   if (!env.RESEND_API_KEY) {
     throw new Error('RESEND_API_KEY is not configured');
   }
 
   const text = [
-    `Neue Anfrage über das Kontaktformular auf energy-solvita.de`,
+    fields.service
+      ? `Neue Anfrage (${fields.service}) auf energy-solvita.de`
+      : `Neue Anfrage über das Kontaktformular auf energy-solvita.de`,
     ``,
     `Name: ${fields.name}`,
-    `E-Mail: ${fields.email}`,
+    `E-Mail: ${fields.email || '(nicht angegeben)'}`,
     `Telefon: ${fields.phone || '(nicht angegeben)'}`,
     ``,
     `Nachricht:`,
@@ -55,8 +60,10 @@ async function sendEmail(env: Env, fields: { name: string; email: string; phone:
     body: JSON.stringify({
       from: `SolVita Kontaktformular <${FROM_EMAIL}>`,
       to: [DESTINATION_EMAIL],
-      reply_to: fields.email,
-      subject: `Neue Anfrage von ${fields.name}`,
+      ...(fields.email ? { reply_to: fields.email } : {}),
+      subject: fields.service
+        ? `Neue Anfrage (${fields.service}) von ${fields.name}`
+        : `Neue Anfrage von ${fields.name}`,
       text,
     }),
   });
@@ -74,7 +81,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const name = String(form.get('name') ?? '').trim();
   const email = String(form.get('email') ?? '').trim();
   const phone = String(form.get('phone') ?? '').trim();
-  const message = String(form.get('message') ?? '').trim();
+  const service = String(form.get('service') ?? '').trim();
+  const message = String(form.get('message') ?? '').trim() ||
+    (service ? `Kurzanfrage über das Formular „${service}“ — bitte zurückrufen.` : '');
 
   // Bots that fill every field, or submit faster than a human could:
   // pretend success so we don't teach them which defense tripped.
@@ -83,12 +92,15 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return jsonResponse({ ok: true }, 200);
   }
 
-  if (!name || !email || !message) {
+  // The full contact form requires email + message; the compact per-service
+  // lead form (QuickLeadForm.astro) only collects name + phone, so a way to
+  // reach the person (email or phone) is what's actually required.
+  if (!name || (!email && !phone) || !message) {
     return jsonResponse({ ok: false, error: 'missing_fields' }, 400);
   }
 
   try {
-    await sendEmail(env, { name, email, phone, message });
+    await sendEmail(env, { name, email, phone, message, service });
   } catch (error) {
     console.error('kontakt: send failed', error);
     return jsonResponse({ ok: false, error: 'send_failed' }, 500);
