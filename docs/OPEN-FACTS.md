@@ -95,3 +95,35 @@ is missing. Grouped summary:
   `RESEND_API_KEY` (or an equivalent swap) set as a Cloudflare Pages
   environment variable before it can actually deliver mail; see
   `docs/HANDOVER.md`.
+- **PV package tiers reinstated (2026-09)** — the Basis/Komfort/Effizient/
+  Voll-Autark specs (module count, kWp, storage kWh) are back in
+  `photovoltaikanlage.md`. An earlier pass (see the Pricing note above) had
+  deliberately dropped this same tier data because CLAUDE.md lists "all
+  prices" as unverified. On re-checking the live page, the tiers themselves
+  never show a € figure — only hardware specs — so they were re-added
+  without pricing. Worth Daniel's eyes regardless, since the two passes
+  disagreed once already.
+- **Manufacturer conflict on the PV page** — the live site's package tiers
+  name Huawei and EcoFlow inverters/storage, not in CLAUDE.md's verified
+  list (Sungrow, Deye, myenergi, Loxone, K2 Systems). Left as a `TODO` in
+  `photovoltaikanlage.md` rather than guessing which is current.
+
+## Images (2026-09)
+
+The rebuild had zero images anywhere — only the logo placeholder and OG
+default SVG existed. Checked the old live site page by page:
+
+- **Klimaanlage and Photovoltaikanlage** — real SolVita project photos
+  (a Daikin outdoor unit installed on a house wall; a PV roof install on a
+  red-brick house). Pulled into `src/assets/leistungen/` and wired through
+  `astro:assets` (`LeistungLayout.astro`'s `hero` prop) with real alt text,
+  AVIF/WebP, explicit dimensions.
+- **Wallbox, Smart Home, Baustromkasten, Energie-Gebäudetechnik** — the old
+  site has photos on these too, but on inspection they're generic stock
+  photography, not SolVita's own work (a golden-hour wallbox/lake shot, a
+  staged hand-on-tablet kitchen scene, architectural blueprints, a white
+  house model). The Baustromkasten and Energie-Gebäudetechnik stock photos
+  don't even depict the actual service. Licensing for this stock imagery on
+  a rebuilt site is unverified, so none of the four were added. These four
+  pages remain image-free until Daniel supplies real photos or confirms the
+  stock photos are licensed for reuse.
