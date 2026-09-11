@@ -1,9 +1,13 @@
 ---
 import { getEntry } from 'astro:content';
 import LeistungLayout from '../layouts/LeistungLayout.astro';
+import heroImage from '../assets/leistungen/photovoltaikanlage/hero.jpg';
 
 const entry = await getEntry('leistungen', 'photovoltaikanlage');
 if (!entry) throw new Error('Missing leistungen entry: photovoltaikanlage');
 ---
 
-<LeistungLayout entry={entry} />
+<LeistungLayout
+  entry={entry}
+  hero={{ image: heroImage, alt: 'Einfamilienhaus mit Photovoltaikanlage auf dem Ziegeldach' }}
+/>
