@@ -80,14 +80,26 @@
   }
 }
 
-/* Rendered Markdown/MDX body copy (leistungen/orte/ratgeber collections) */
+/* Rendered Markdown/MDX body copy (leistungen/orte/ratgeber collections).
+   max-width lives on the text elements themselves, not on .md-content —
+   a wide element inside the content (a card grid written directly in an
+   .mdx file, e.g. klimaanlage.mdx) is a block that would otherwise
+   inherit and get squeezed to the same narrow measure as the prose
+   around it. Text stays capped at a readable line length; anything with
+   its own explicit `grid` layout is exempt and can use the full width
+   of its container. */
 @layer components {
-  .md-content {
-    max-width: var(--measure);
-  }
-
   .md-content > * + * {
     margin-top: 1.1em;
+  }
+
+  .md-content h2,
+  .md-content h3,
+  .md-content p,
+  .md-content > ul,
+  .md-content > ol:not(.grid),
+  .md-content > blockquote {
+    max-width: var(--measure);
   }
 
   .md-content h2 {
@@ -112,7 +124,7 @@
     padding-left: 1.25em;
   }
 
-  .md-content ol {
+  .md-content ol:not(.grid) {
     list-style: decimal;
     padding-left: 1.25em;
   }
