@@ -37,8 +37,18 @@ never guessed").
   This is a faithful trace of the real mark, not a hand-built bezier master —
   if the designer later sends a true vector file, swap it into
   `src/assets/logo.svg` in one file change (structure unchanged).
-- [ ] Horizontal lockup
-- [ ] Paper-white negative version
+- [x] Horizontal lockup — **resolved, with caveats** (2026-09): also traced
+  the wordmark itself (the client's actual custom "SOLVITA" lettering, not a
+  typeset approximation) from the same source PNG, and combined it with the
+  mark in `src/assets/logo-horizontal.svg` (mark left, wordmark right,
+  `currentColor`, native relative scale — no invented rescale between the
+  two pieces). Not yet wired into any page; it's a ready-to-use asset.
+- [x] Paper-white negative version — **resolved, with caveats** (2026-09):
+  `src/assets/logo-negative.svg` reconstructs the client's exact vertical
+  composition (mark above wordmark, same relative position/gap as the
+  source PNG) hardcoded to `#F8F9F7` instead of `currentColor`, for contexts
+  without CSS control (photos, print, third-party profile uploads). Not
+  wired into any page yet either.
 - [x] Mark-only crop for favicon PNGs (32/180/512 + `site.webmanifest`) —
   **resolved** (2026-09): generated programmatically from `src/assets/logo.svg`
   (`public/favicon-32x32.png`, `public/apple-touch-icon.png`,
