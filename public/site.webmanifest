@@ -1,0 +1,22 @@
+{
+  "name": "SolVita",
+  "short_name": "SolVita",
+  "description": "Photovoltaik, Speicher, Wallboxen und Gebäudetechnik vom Elektrofachbetrieb aus Wolfsburg.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F9F7",
+  "theme_color": "#142523",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

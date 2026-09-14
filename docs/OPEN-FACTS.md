@@ -39,8 +39,14 @@ never guessed").
   `src/assets/logo.svg` in one file change (structure unchanged).
 - [ ] Horizontal lockup
 - [ ] Paper-white negative version
-- [ ] Mark-only crop for favicon PNGs (32/180/512 + `site.webmanifest`) — the
-  SVG favicon is now the real mark, but no PNG/webmanifest pipeline exists yet
+- [x] Mark-only crop for favicon PNGs (32/180/512 + `site.webmanifest`) —
+  **resolved** (2026-09): generated programmatically from `src/assets/logo.svg`
+  (`public/favicon-32x32.png`, `public/apple-touch-icon.png`,
+  `public/icon-512.png`), wired into `BaseLayout.astro`'s `<head>` and
+  `public/site.webmanifest`. 32px is ink-on-transparent to match
+  `favicon.svg`; 180/512 use the sage-on-ink dark-section pairing from
+  `tokens.css` (6.50:1) since Apple/Android icons need an opaque background.
+  Re-crop from a true vector master if/when one arrives.
 - [ ] Clear space = ½ mark height (confirm against real vector)
 - [ ] Min lockup height 32px (confirm against real vector)
 
