@@ -28,16 +28,21 @@ never guessed").
 
 ## Logo assets (from CLAUDE.md's "Logo" section)
 
-- [ ] Vector SVG of the mark
+- [x] Vector SVG of the mark — **resolved, with caveats** (2026-09): the client
+  supplied the real vertical lockup as a raster PNG
+  (`src/assets/cropped-SOLVITA.png`, 1998×1556, single flat `#77B0AA` fill).
+  I cropped it to just the mark and traced it programmatically (potrace) into
+  `src/assets/logo.svg`, wired into `Header.astro`/`Footer.astro` via
+  `currentColor`, and into `public/favicon.svg` and `public/og-default.svg`.
+  This is a faithful trace of the real mark, not a hand-built bezier master —
+  if the designer later sends a true vector file, swap it into
+  `src/assets/logo.svg` in one file change (structure unchanged).
 - [ ] Horizontal lockup
 - [ ] Paper-white negative version
-- [ ] Mark-only crop for favicon (32/180/512 + `site.webmanifest`)
+- [ ] Mark-only crop for favicon PNGs (32/180/512 + `site.webmanifest`) — the
+  SVG favicon is now the real mark, but no PNG/webmanifest pipeline exists yet
 - [ ] Clear space = ½ mark height (confirm against real vector)
 - [ ] Min lockup height 32px (confirm against real vector)
-
-Until these arrive, `src/assets/logo-placeholder.svg` is a clearly-marked
-placeholder built from the description in CLAUDE.md (gear containing a
-rising sun, halved by a horizon line, single flat `--c-sage` fill).
 
 ## Content TODOs (Step 3)
 
