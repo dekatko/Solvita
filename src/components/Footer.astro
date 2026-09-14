@@ -8,7 +8,7 @@ import { business } from '../lib/business';
 ---
 
 <footer class="border-t border-line bg-ink text-mist">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-5">
     <div>
       <div class="flex items-center gap-2 text-paper">
         <span class="h-8 w-8 text-sage" set:html={logoMarkup} />
@@ -43,7 +43,10 @@ import { business } from '../lib/business';
         <li><a href="/faq/" class="hover:text-paper">FAQ</a></li>
         <li><a href="/kontakt/" class="hover:text-paper">Kontakt</a></li>
       </ul>
-      <p class="mt-5 text-sm font-semibold text-paper">Standorte</p>
+    </nav>
+
+    <nav aria-label="Standorte">
+      <p class="text-sm font-semibold text-paper">Standorte</p>
       <ul class="mt-3 space-y-2 text-sm text-mist/80">
         <li><a href="/photovoltaik-wolfsburg/" class="hover:text-paper">Wolfsburg</a></li>
         <li><a href="/photovoltaik-gifhorn/" class="hover:text-paper">Gifhorn</a></li>
