@@ -164,6 +164,16 @@ default SVG existed. Checked the old live site page by page:
   staged hand-on-tablet kitchen scene, architectural blueprints, a white
   house model). The Baustromkasten and Energie-Gebäudetechnik stock photos
   don't even depict the actual service. Licensing for this stock imagery on
-  a rebuilt site is unverified, so none of the four were added. These four
-  pages remain image-free until Daniel supplies real photos or confirms the
-  stock photos are licensed for reuse.
+  a rebuilt site is unverified.
+  - **Update (2026-09, at the owner's request):** the Wallbox and Smart Home
+    photos (the two that do show the right subject) were reused from the old
+    site — `src/assets/leistungen/wallboxen/hero.jpg` and
+    `smart-home/hero.jpg`, also thumbnails on the homepage cards. **They are
+    still stock photos, not SolVita's own work, and their licence is
+    unverified** — [ ] Daniel to confirm the old site had the right to use
+    them and that it extends to this site, or replace them with real project
+    photos. The old site's other Wallbox/Smart Home images (clip-art
+    illustration, 3D render) were not used.
+  - Baustromkasten and Energie-Gebäudetechnik stay image-free (their old-site
+    photos don't depict the service), as do Stromspeicher and Wärmepumpe
+    (no old-site photo exists).

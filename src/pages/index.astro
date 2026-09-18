@@ -10,6 +10,8 @@ import { faqItems } from '../lib/faq';
 import { business } from '../lib/business';
 import pvPhoto from '../assets/leistungen/photovoltaikanlage/hero.jpg';
 import klimaPhoto from '../assets/leistungen/klimaanlage/hero.jpg';
+import wallboxPhoto from '../assets/leistungen/wallboxen/hero.jpg';
+import smartHomePhoto from '../assets/leistungen/smart-home/hero.jpg';
 
 const services = await getCollection('leistungen');
 const faqTeaser = faqItems.slice(0, 4);
@@ -27,6 +29,16 @@ const cardPhotos: Record<string, { image: ImageMetadata; alt: string; position: 
     alt: 'Außeneinheit einer Klimaanlage an einer Hauswand',
     position: 'center 62%',
   },
+  wallboxen: {
+    image: wallboxPhoto,
+    alt: 'Wallbox an einer Hauswand neben einem Elektroauto',
+    position: 'center 50%',
+  },
+  'smart-home': {
+    image: smartHomePhoto,
+    alt: 'Wandtablet zur Steuerung der Heizung in einer Küche',
+    position: 'center 45%',
+  },
 };
 ---
 
@@ -35,7 +47,7 @@ const cardPhotos: Record<string, { image: ImageMetadata; alt: string; position: 
   title="Photovoltaik in Wolfsburg & Umgebung | SolVita"
   description="Solaranlagen, Speicher und Wallboxen vom Elektrofachbetrieb aus Wolfsburg. Planung, Montage und Service aus einer Hand — kostenlose Dachprüfung."
 >
-  <HorizonSplit aBackground="ink" bBackground="paper">
+  <HorizonSplit aBackground="ink" bBackground="paper" bFlush>
     <Fragment slot="a">
       <p class="text-sm font-medium uppercase tracking-[var(--tracking-label)] text-sage">Photovoltaik aus Wolfsburg</p>
       <h1 class="mt-4 text-4xl font-semibold leading-[var(--lh-tight)] text-paper">
@@ -53,11 +65,11 @@ const cardPhotos: Record<string, { image: ImageMetadata; alt: string; position: 
       <Image
         src={pvPhoto}
         alt="Einfamilienhaus mit Photovoltaikanlage auf dem Ziegeldach"
-        width={640}
-        height={480}
+        width={960}
+        height={720}
         loading="eager"
         fetchpriority="high"
-        class="aspect-[4/3] w-full rounded-[var(--radius-md)] object-cover shadow-[var(--shadow)]"
+        class="aspect-[4/3] w-full object-cover object-[center_75%] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
       />
     </Fragment>
   </HorizonSplit>

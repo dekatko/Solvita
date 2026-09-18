@@ -4,13 +4,16 @@
 // here as a panel background — tokens.css marks it SURFACES ONLY, not
 // for large text-bearing panels; use it for small surface/illustration
 // elements instead (icon chips, badges).
+// bFlush: the b half is a full-bleed photo — no padding, no width cap; the
+// slotted <Image> is expected to fill the cell (see index.astro).
 interface Props {
   aBackground?: 'ink' | 'paper' | 'mist' | 'petrol';
   bBackground?: 'ink' | 'paper' | 'mist' | 'petrol';
+  bFlush?: boolean;
   class?: string;
 }
 
-const { aBackground = 'ink', bBackground = 'paper', class: className } = Astro.props;
+const { aBackground = 'ink', bBackground = 'paper', bFlush = false, class: className } = Astro.props;
 
 const bgMap = {
   ink: 'bg-ink text-mist',
@@ -26,9 +29,15 @@ const bgMap = {
       <slot name="a" />
     </div>
   </div>
-  <div class:list={['flex flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24', bgMap[bBackground]]}>
-    <div class="mx-auto w-full max-w-xl">
+  {bFlush ? (
+    <div class:list={['relative', bgMap[bBackground]]}>
       <slot name="b" />
     </div>
-  </div>
+  ) : (
+    <div class:list={['flex flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24', bgMap[bBackground]]}>
+      <div class="mx-auto w-full max-w-xl">
+        <slot name="b" />
+      </div>
+    </div>
+  )}
 </div>

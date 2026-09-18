@@ -1,9 +1,13 @@
 ---
 import { getEntry } from 'astro:content';
 import LeistungLayout from '../layouts/LeistungLayout.astro';
+import heroImage from '../assets/leistungen/smart-home/hero.jpg';
 
 const entry = await getEntry('leistungen', 'smart-home');
 if (!entry) throw new Error('Missing leistungen entry: smart-home');
 ---
 
-<LeistungLayout entry={entry} />
+<LeistungLayout
+  entry={entry}
+  hero={{ image: heroImage, alt: 'Wandtablet in der Küche zeigt die Heizungssteuerung eines Smart-Home-Systems' }}
+/>
