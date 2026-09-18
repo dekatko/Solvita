@@ -29,8 +29,8 @@ requested in this pass — see "Not done" below), the map is click-to-load.
 - `/impressum/`, `/datenschutz/`, `/agb/` — structural placeholders, need a
   lawyer's review, excluded from the sitemap (still indexable)
 
-**SEO/structured data**: `Electrician` JSON-LD site-wide (geo and Google
-Business Profile `sameAs` genuinely omitted, not guessed), `Service` schema
+**SEO/structured data**: `Electrician` JSON-LD site-wide (with `geo` and the
+Google Business Profile in `sameAs`), `Service` schema
 on every leistungen page pointing at the org `@id`, `FAQPage` on `/faq/`,
 `BreadcrumbList` on nested routes. Every title/description enforced by a
 Zod schema (140–158 char descriptions, ≤60 char titles) that fails the
@@ -47,7 +47,7 @@ caught by an actual axe-core pass, not just a visual check.
 
 See **[docs/OPEN-FACTS.md](OPEN-FACTS.md)** — nothing here is duplicated,
 that file is the single source. Summary of categories: business/legal facts
-(geo, USt-IdNr., Rechtsform, Handelsregister, GBP URL), logo assets (only a
+(USt-IdNr., Rechtsform, Handelsregister), logo assets (only a
 placeholder mark exists), reference projects (zero — collection is empty),
 prices (all `[Preis auf Anfrage]`), and per-page content TODOs.
 
@@ -145,10 +145,10 @@ section). Worth mentioning to the client if they try it.
 - [ ] Request indexing for the six money pages (home, `/photovoltaikanlage/`,
   the four `/photovoltaik-{city}/` pages — or whichever six matter most)
 - [ ] Remove the old WordPress sitemap from Search Console
-- [ ] Update the GBP website link to the new domain, and once you have the
-  GBP URL, add it to `sameAs` in `src/lib/business.ts`
-  (`googleBusinessProfileUrl`) — CLAUDE.md flags this as mattering for
-  tying the site and profile together in Google's eyes
+- [ ] Update the GBP website link to the new domain (the GBP URL is already
+  in `sameAs` via `googleBusinessProfileUrl` in `src/lib/business.ts`) —
+  CLAUDE.md flags this as mattering for tying the site and profile
+  together in Google's eyes
 - [ ] Crawl for 404s and orphans on the live domain (a repeat of
   `npm run verify`'s link/orphan check, but against production)
 - [ ] Baseline ranking snapshot for the 12 target queries

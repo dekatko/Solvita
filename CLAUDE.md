@@ -19,9 +19,11 @@ disagree, this file is right.
 | Areas served | Wolfsburg, Gifhorn, Braunschweig, Helmstedt |
 | Manufacturers | Sungrow, Deye, myenergi, Loxone, K2 Systems |
 | Instagram | `https://www.instagram.com/energy_solvita/` |
+| Google Business Profile | `https://maps.app.goo.gl/bLHBAVsfnxJf7kSK7` |
+| Geo coordinates | `52.4751042, 10.7679795` (GBP pin, confirmed by owner) |
 
-**Unknown — must stay TODO, never guessed:** geo coordinates, USt-IdNr., legal form,
-chamber of trade, Google Business Profile URL, Facebook/LinkedIn URLs, all reference
+**Unknown — must stay TODO, never guessed:** USt-IdNr., legal form,
+chamber of trade, Facebook/LinkedIn URLs, all reference
 projects, all prices, all reviews.
 
 ## Brand
@@ -207,8 +209,8 @@ the index, not pass equity — 410, not 301.
 `Electrician` (LocalBusiness subtype) in the base layout on every page, `@id`
 `https://energy-solvita.de/#organisation`, with `address`, `telephone`, `email`,
 `openingHoursSpecification` (Mo–Fr 08–17, Sa 10–14), `areaServed` (the four cities as
-`City`), `founder` (Daniel Weiss, Elektroingenieur), `foundingDate` 2024, `geo` (TODO),
-`sameAs` (Instagram now; GBP URL is TODO and matters — it is how Google ties site and
+`City`), `founder` (Daniel Weiss, Elektroingenieur), `foundingDate` 2024, `geo`,
+`sameAs` (Instagram and the GBP URL — the GBP link matters, it is how Google ties site and
 profile together).
 
 Also: `Service` per service page pointing at the org `@id`; `FAQPage` only for Q&A

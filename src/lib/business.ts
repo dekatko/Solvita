@@ -21,9 +21,9 @@ export const business = {
   areasServed: ['Wolfsburg', 'Gifhorn', 'Braunschweig', 'Helmstedt'] as const,
   manufacturers: ['Sungrow', 'Deye', 'myenergi', 'Loxone', 'K2 Systems'] as const,
   instagram: 'https://www.instagram.com/energy_solvita/',
-  // TODO(daniel): Google Business Profile URL — needed for sameAs, matters
-  // for tying the site to the GBP listing in Google's eyes (see CLAUDE.md).
-  googleBusinessProfileUrl: undefined as string | undefined,
+  googleBusinessProfileUrl: 'https://maps.app.goo.gl/bLHBAVsfnxJf7kSK7',
+  // Pin of the Google Business Profile listing, confirmed correct by the owner.
+  geo: { latitude: 52.4751042, longitude: 10.7679795 },
 } as const;
 
 export const siteUrl = 'https://energy-solvita.de';

@@ -15,8 +15,16 @@ never guessed").
   just something I failed to find.
 - [ ] Chamber of trade / Handwerkskammer registration details — same, not on
   the old page either.
-- [ ] Geo coordinates (lat/long) for the `Electrician` JSON-LD `geo` property
-- [ ] Google Business Profile URL — needed for `sameAs` in structured data (see CLAUDE.md's Structured Data section: "matters — it is how Google ties site and profile together")
+- [x] Geo coordinates — **resolved** (2026-09): `52.4751042, 10.7679795`,
+  taken from the pin of the Google Business Profile listing and confirmed
+  correct by the owner. In `src/lib/business.ts`, emitted as `geo` in the
+  `Electrician` JSON-LD.
+- [x] Google Business Profile URL — **resolved** (2026-09): supplied as
+  `https://maps.app.goo.gl/bLHBAVsfnxJf7kSK7`, now in `src/lib/business.ts`
+  and emitted in the `Electrician` JSON-LD `sameAs`. Note the listing itself is
+  still titled "SolVita Photovoltaik | Photovoltaik-Anlagen in Niedersachsen"
+  (old branding) and its website link still needs pointing at the new domain
+  at cutover — see `docs/HANDOVER.md`.
 - [ ] Facebook / LinkedIn URLs — the old site's footer nav lists "Facebook"
   and "LinkedIn" under "Folge uns" alongside Instagram/WhatsApp, so profiles
   likely exist, but I only extracted link *text*, not the actual `href`

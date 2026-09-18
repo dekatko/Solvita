@@ -1,11 +1,9 @@
 import { business, orgId, siteUrl } from './business';
 
 // Electrician (a LocalBusiness subtype) — emitted on every page from
-// BaseLayout. geo is deliberately omitted (not fabricated) until real
-// coordinates arrive; see docs/OPEN-FACTS.md.
+// BaseLayout.
 export function organizationSchema() {
-  const sameAs: string[] = [business.instagram];
-  if (business.googleBusinessProfileUrl) sameAs.push(business.googleBusinessProfileUrl);
+  const sameAs: string[] = [business.instagram, business.googleBusinessProfileUrl];
 
   return {
     '@context': 'https://schema.org',
@@ -43,8 +41,12 @@ export function organizationSchema() {
       jobTitle: business.legalContactTitle,
     },
     foundingDate: String(business.foundedCompany),
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: business.geo.latitude,
+      longitude: business.geo.longitude,
+    },
     sameAs,
-    // TODO(daniel): geo coordinates (lat/long) — omitted rather than guessed.
   };
 }
 
