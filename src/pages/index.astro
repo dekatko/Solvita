@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HorizonSplit from '../components/HorizonSplit.astro';
 import Button from '../components/Button.astro';
@@ -7,9 +8,26 @@ import Faq from '../components/Faq.astro';
 import { getCollection } from 'astro:content';
 import { faqItems } from '../lib/faq';
 import { business } from '../lib/business';
+import pvPhoto from '../assets/leistungen/photovoltaikanlage/hero.jpg';
+import klimaPhoto from '../assets/leistungen/klimaanlage/hero.jpg';
 
 const services = await getCollection('leistungen');
 const faqTeaser = faqItems.slice(0, 4);
+
+// Only services with a real SolVita project photo get a thumbnail; the rest
+// stay text-only until real photos exist (see docs/OPEN-FACTS.md, Images).
+const cardPhotos: Record<string, { image: ImageMetadata; alt: string; position: string }> = {
+  photovoltaikanlage: {
+    image: pvPhoto,
+    alt: 'Dunkle Solarmodule auf dem Dach eines Ziegelhauses',
+    position: 'center 62%',
+  },
+  klimaanlage: {
+    image: klimaPhoto,
+    alt: 'Außeneinheit einer Klimaanlage an einer Hauswand',
+    position: 'center 62%',
+  },
+};
 ---
 
 <!-- TODO(daniel): verify facts before publishing -->
@@ -32,14 +50,26 @@ const faqTeaser = faqItems.slice(0, 4);
       </div>
     </Fragment>
     <Fragment slot="b">
-      <div class="grid grid-cols-2 gap-6">
-        <FigureStat value="5–30" unit="kWp" label="Anlagengröße für Einfamilienhaus, Betrieb und Landwirtschaft" />
-        <FigureStat value={String(business.foundedCompany)} label="Gründung als Unternehmen" />
-        <FigureStat value="4" label="Regionen: Wolfsburg, Gifhorn, Braunschweig, Helmstedt" />
-        <FigureStat value="1" label="Ansprechpartner von der Beratung bis zur Inbetriebnahme" />
-      </div>
+      <Image
+        src={pvPhoto}
+        alt="Einfamilienhaus mit Photovoltaikanlage auf dem Ziegeldach"
+        width={640}
+        height={480}
+        loading="eager"
+        fetchpriority="high"
+        class="aspect-[4/3] w-full rounded-[var(--radius-md)] object-cover shadow-[var(--shadow)]"
+      />
     </Fragment>
   </HorizonSplit>
+
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 sm:px-6 lg:grid-cols-4">
+      <FigureStat value="5–30" unit="kWp" label="Anlagengröße für Einfamilienhaus, Betrieb und Landwirtschaft" />
+      <FigureStat value={String(business.foundedCompany)} label="Gründung als Unternehmen" />
+      <FigureStat value="4" label="Regionen: Wolfsburg, Gifhorn, Braunschweig, Helmstedt" />
+      <FigureStat value="1" label="Ansprechpartner von der Beratung bis zur Inbetriebnahme" />
+    </div>
+  </section>
 
   <section id="leistungen" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
     <h2 class="text-2xl font-semibold text-ink">Unsere Leistungen</h2>
@@ -47,16 +77,32 @@ const faqTeaser = faqItems.slice(0, 4);
       Alles rund um Solarstrom und Gebäudetechnik — geplant und installiert von einem Team aus einer Hand.
     </p>
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {services.map((service) => (
-        <a
-          href={`/${service.id}/`}
-          class="flex flex-col rounded-[var(--radius-md)] border border-line bg-paper p-6 shadow-[var(--shadow)] transition-shadow hover:shadow-[0_1px_2px_rgba(20,37,35,.06),_0_16px_40px_-20px_rgba(20,37,35,.5)]"
-        >
-          <h3 class="text-lg font-semibold text-ink">{service.data.h1}</h3>
-          <p class="mt-2 text-sm text-zinc">{service.data.summary}</p>
-          <span class="mt-4 text-sm font-semibold text-petrol">Mehr erfahren →</span>
-        </a>
-      ))}
+      {services.map((service) => {
+        const photo = cardPhotos[service.id];
+        return (
+          <a
+            href={`/${service.id}/`}
+            class="flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-line bg-paper shadow-[var(--shadow)] transition-shadow hover:shadow-[0_1px_2px_rgba(20,37,35,.06),_0_16px_40px_-20px_rgba(20,37,35,.5)]"
+          >
+            {photo && (
+              <Image
+                src={photo.image}
+                alt={photo.alt}
+                width={480}
+                height={270}
+                loading="lazy"
+                class="aspect-video w-full object-cover"
+                style={`object-position: ${photo.position}`}
+              />
+            )}
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-lg font-semibold text-ink">{service.data.h1}</h3>
+              <p class="mt-2 text-sm text-zinc">{service.data.summary}</p>
+              <span class="mt-auto pt-4 text-sm font-semibold text-petrol">Mehr erfahren →</span>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </section>
 
