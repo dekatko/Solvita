@@ -6,6 +6,17 @@
 // and a timestamp trap (rejects submissions faster than a human could
 // fill the form) — both checked server-side in functions/api/kontakt.ts.
 // No CAPTCHA, no third-party embed, nothing stored server-side.
+const services = [
+  'Photovoltaikanlage',
+  'Stromspeicher',
+  'Wärmepumpe',
+  'Wallboxen',
+  'Klimaanlage',
+  'Smart Home',
+  'Baustromkasten',
+  'Energie- & Gebäudetechnik',
+  'Sonstiges',
+];
 ---
 
 <form
@@ -42,12 +53,34 @@
     />
   </div>
   <div>
+    <label for="service" class="text-sm font-medium text-ink-2">Wofür interessieren Sie sich?</label>
+    <select
+      id="service" name="service" required
+      class="mt-1 w-full rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
+    >
+      <option value="" disabled selected>Bitte auswählen</option>
+      {services.map((label) => <option value={label}>{label}</option>)}
+    </select>
+  </div>
+  <div>
     <label for="message" class="text-sm font-medium text-ink-2">Ihr Anliegen</label>
     <textarea
       id="message" name="message" rows="4" required
       class="mt-1 w-full rounded-[var(--radius-sm)] border border-line px-3 py-2 text-ink focus:border-petrol focus:outline-none focus:ring-1 focus:ring-petrol"
     ></textarea>
   </div>
+
+  <label class="flex items-start gap-2 text-sm text-ink-2">
+    <input
+      type="checkbox" name="consent" required
+      class="mt-0.5 h-4 w-4 rounded-[var(--radius-sm)] border-line text-petrol focus:ring-petrol"
+    />
+    <span>
+      Ich bin einverstanden, dass SolVita meine Daten zur Kontaktaufnahme elektronisch verarbeitet. Diese
+      Einwilligung kann jederzeit für die Zukunft widerrufen werden.
+      (<a href="/datenschutz/" class="text-petrol underline hover:text-petrol-dk">Datenschutzerklärung</a>)
+    </span>
+  </label>
 
   <button
     type="submit"

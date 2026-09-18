@@ -99,6 +99,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return jsonResponse({ ok: false, error: 'missing_fields' }, 400);
   }
 
+  // Both forms carry the consent checkbox; enforce it here too so a direct
+  // POST can't skip what the browser's `required` attribute checks.
+  if (!form.get('consent')) {
+    return jsonResponse({ ok: false, error: 'consent_missing' }, 400);
+  }
+
   try {
     await sendEmail(env, { name, email, phone, message, service });
   } catch (error) {
