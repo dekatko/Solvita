@@ -132,9 +132,12 @@ section). Worth mentioning to the client if they try it.
 - [ ] **Impressum complete** — missing Rechtsform, Handelsregisternummer,
   USt-IdNr., Handwerkskammer. See OPEN-FACTS.md.
 - [ ] **Datenschutzerklärung matches what the site actually loads** — the
-  current text is a structural placeholder, not a compliant policy; needs
-  a lawyer's or Datenschutzbeauftragter's review before publishing,
-  especially once Plausible (or any analytics) is actually wired up.
+  text was rewritten to match the new site (2026-09), but it still has
+  inline `[TODO(daniel): ...]` placeholders (mailbox provider, AVVs with
+  Cloudflare and Resend, US-transfer basis, Resend address) and needs a
+  lawyer's or Datenschutzbeauftragter's review before publishing,
+  especially once Plausible (or any analytics) is actually wired up. See
+  OPEN-FACTS.md.
 
 ### After cutover
 - [ ] Search Console property + submit the new sitemap

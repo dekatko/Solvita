@@ -92,15 +92,26 @@ is missing. Grouped summary:
   - `agb.astro` — now the real §1–§11 terms, copied verbatim from
     `/allgemeine-geschaefsbedingungen/` on the old site. Flagged for a
     lawyer to confirm it's still current, since I can't verify that myself.
-  - `datenschutz.astro` — now the real old-site text, copied verbatim.
-    **Important mismatch**: it describes Google Analytics, Google Ads,
-    Google Tag Manager, Facebook/Instagram/LinkedIn embeds, Usercentrics
-    consent, and All-Inkl hosting — none of which this new site actually
-    uses (it uses none of them, hosts on Cloudflare Pages, and its only
-    third-party embed is the click-to-load Google Maps on `/kontakt/`).
-    CLAUDE.md's own checklist says "Datenschutzerklärung matches what the
-    site actually loads" before cutover — this page needs that update
-    before publishing, it's flagged in the page itself too.
+  - `datenschutz.astro` — **rewritten (2026-09) to match the new site.** The
+    old text (Google Analytics/Tag Manager/Ads, Usercentrics, Facebook/
+    LinkedIn/Instagram plugins, All-Inkl hosting) was removed: none of it
+    runs here, and the old site's HTML didn't load GTM/GA/Ads either (only
+    the Usercentrics loader). New text covers Cloudflare hosting + server
+    logs, the contact form and Resend e-mail delivery, WhatsApp/Instagram as
+    plain links, click-to-load Google Maps, self-hosted fonts, and "no
+    cookies, no analytics". The general rights/legal-basis boilerplate is
+    kept from the old text. Still open, marked inline as
+    `[TODO(daniel): ...]` on the page:
+    - [ ] Provider of the `info@energy-solvita.de` mailbox (receives every
+      form submission)
+    - [ ] Signed AVV/DPA with Cloudflare and with Resend
+    - [ ] US-transfer basis for both (Data Privacy Framework certification
+      or SCCs)
+    - [ ] Resend's full company address
+    - [ ] Confirm on the live domain that Cloudflare sets no cookie of its
+      own (the "keine Cookies" statement assumes that)
+    - [ ] Lawyer / eRecht24 review before launch, and a new section if
+      Plausible or any other third-party service is added later
 - **FAQ** — the old site's real homepage FAQ has 8 questions, not the 15
   CLAUDE.md's page description promised. Rewrote `src/lib/faq.ts` to the
   real 8 (in our own words) and corrected the description to say 8. Note:
